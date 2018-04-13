@@ -20,6 +20,7 @@
 
     <style name="MainActivity_Calendar" parent="CalSyncMainActivity" >
         <item name="android:textColorPrimary">@color/calsync_theme_foreground</item>
+        <item name="android:colorBackground">@android:color/darker_gray</item>
     </style>
 
 </resources>
