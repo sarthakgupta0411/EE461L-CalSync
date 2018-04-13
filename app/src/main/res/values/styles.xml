@@ -18,4 +18,8 @@
         <item name="colorAccent">@color/calsync_theme_accent</item>
     </style>
 
+    <style name="MainActivity_Calendar" parent="CalSyncMainActivity" >
+        <item name="android:textColorPrimary">@color/calsync_theme_foreground</item>
+    </style>
+
 </resources>
