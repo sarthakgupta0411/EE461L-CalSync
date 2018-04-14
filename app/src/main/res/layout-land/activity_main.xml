@@ -28,7 +28,7 @@
         android:layout_width="290dp"
         android:layout_height="260dp"
         android:addStatesFromChildren="false"
-        android:background="#e0e0e0"
+        android:background="@color/calsync_mainactivity_component_background"
         android:theme="@style/MainActivity_Calendar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

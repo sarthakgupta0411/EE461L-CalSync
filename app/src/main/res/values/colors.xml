@@ -12,4 +12,6 @@
     <color name="calsync_theme_navigationbar">#000000</color>
     <color name="calsync_theme_text_primary">#ffffff</color>
 
+    <color name="calsync_mainactivity_component_background">#e0e0e0</color>
+
 </resources>
