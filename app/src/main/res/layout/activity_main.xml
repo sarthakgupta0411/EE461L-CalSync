@@ -34,4 +34,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:rippleColor="@color/calsync_theme_text_primary"
         app:srcCompat="@android:drawable/ic_menu_add" />
+
+    <TextView
+        android:id="@+id/addEventTextPortrait"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Add New Event"
+        android:textColor="@color/calsync_theme_foreground"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/addEventButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/addEventButton"
+        app:layout_constraintTop_toTopOf="@+id/addEventButton" />
 </android.support.constraint.ConstraintLayout>
