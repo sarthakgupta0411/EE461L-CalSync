@@ -10,6 +10,6 @@
     <color name="calsync_theme_accent">#ff3f00</color>
     <color name="calsync_theme_foreground">#000000</color>
     <color name="calsync_theme_navigationbar">#000000</color>
-    <color name="calsync_theme_text_primary">#FFFFFF</color>
+    <color name="calsync_theme_text_primary">#ffffff</color>
 
 </resources>
