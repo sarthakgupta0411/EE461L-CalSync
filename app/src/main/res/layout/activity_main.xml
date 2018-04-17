@@ -54,7 +54,6 @@
 
     <ScrollView
         android:id="@+id/verticalView"
-        style="@style/MainActivity_Calendar"
         android:layout_width="368dp"
         android:layout_height="117dp"
         android:layout_marginBottom="16dp"
@@ -63,7 +62,6 @@
         android:layout_marginTop="16dp"
         android:background="@color/calsync_mainactivity_component_background"
         android:scrollbars="vertical"
-        android:theme="@style/MainActivity_Calendar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,11 +69,11 @@
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            style="@style/MainActivity_Calendar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:theme="@style/MainActivity_Calendar"></LinearLayout>
+            android:orientation="vertical">
+
+        </LinearLayout>
     </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

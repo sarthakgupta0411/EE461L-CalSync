@@ -7,18 +7,21 @@ public class Calendar {
     protected static ArrayList<Calendar> calendars;
     String name;
 
-    Calendar() {
+    public Calendar() {
     }
-    Calendar(String _name) {
+    public Calendar(String _name) {
         name = _name;
     }
 
     public static ArrayList<Calendar> returnCalendars() {
         //get from database
         if (calendars == null) {
-            //TODO: replace with pull from database if arraylist is null
+            //TODO: replace with pull from database if arraylist is null. This would take care of the updating we need
             calendars = new ArrayList<>();
-            calendars.add(new Calendar1());
+            //add 10 calendars
+            for(int i = 0; i < 10; i++) {
+                calendars.add(new Calendar("Calendar" + i));
+            }
         }
         return calendars;
     }
