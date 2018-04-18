@@ -26,6 +26,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
+        app:backgroundTint="@color/calsync_theme_accent"
         app:elevation="3dp"
         app:layout_constraintBottom_toTopOf="@+id/calendarView"
         app:layout_constraintEnd_toEndOf="@+id/calendarView"
@@ -33,7 +34,7 @@
         app:layout_constraintStart_toStartOf="@+id/calendarView"
         app:layout_constraintTop_toTopOf="parent"
         app:rippleColor="@color/calsync_theme_text_primary"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        app:srcCompat="@drawable/ic_input_add_white" />
 
     <TextView
         android:id="@+id/addEventText"
@@ -43,7 +44,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Add New Event"
+        android:text="@string/add_event_button"
         android:textColor="@color/calsync_theme_foreground"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/addEventButton"
