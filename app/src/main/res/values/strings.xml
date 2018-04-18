@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CalSync</string>
+    <string name="add_event_button">Add New Event</string>
 </resources>
