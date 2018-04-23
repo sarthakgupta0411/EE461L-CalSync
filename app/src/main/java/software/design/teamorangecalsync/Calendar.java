@@ -2,30 +2,57 @@ package software.design.teamorangecalsync;
 
 import java.util.ArrayList;
 
-public class Calendar {
+public abstract class Calendar {
 
-    protected static ArrayList<Calendar> calendars;
-    String name;
+    private static ArrayList<Calendar> calendars;
 
-    public Calendar() {
+    protected String name;
+    protected ArrayList<Event> events;
+
+    protected Calendar() {
+        if (calendars == null) {
+            //will initialize if null
+            fetchCalendars();
+        }
+        calendars.add(this);
     }
-    public Calendar(String _name) {
+    protected Calendar(String _name) {
+        this();
         name = _name;
+        events = new ArrayList<Event>();
     }
 
-    public static ArrayList<Calendar> returnCalendars() {
+    protected void addEvent(Event newEvent) {
+        events.add(newEvent);
+    }
+    protected void deleteEvent(Event event) {
+        events.remove(event);
+    }
+    protected void storeToDatabase() {
+        //TODO: push the code to the database
+    }
+
+    protected static ArrayList<Calendar> getCalendars() {
         //get from database
         if (calendars == null) {
-            //TODO: replace with pull from database if arraylist is null. This would take care of the updating we need
-            calendars = new ArrayList<>();
-            //add 10 calendars
-            for(int i = 0; i < 10; i++) {
-                calendars.add(new Calendar("Calendar" + i));
-            }
+            fetchCalendars();
         }
         return calendars;
     }
-    public void uploadToDatabase() {
-        //push the code to the database
+
+    private static void fetchCalendars() {
+        if (calendars == null) {
+            synchronized (Calendar.class) {   //thread safe synchronization
+                if (calendars == null) {
+                    //TODO: Replace with pull from database if arraylist is null. This would take
+                    //TODO: care of the updating we need
+                    calendars = new ArrayList<>();
+                    //add 10 calendars
+                    for (int i = 0; i < 10; i++) {
+                        calendars.add(new CalSyncCalendar("CalSyncCalendar" + i));
+                    }
+                }
+            }
+        }
     }
 }
