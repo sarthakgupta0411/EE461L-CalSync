@@ -21,6 +21,7 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addEventButton"
+        android:onClick="createNewEvent"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
