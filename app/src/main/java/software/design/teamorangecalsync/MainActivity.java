@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,7 +47,19 @@ public class MainActivity extends AppCompatActivity {
         System.out.println(((CalendarView)findViewById(R.id.calendarView)).getChildCount());
         System.out.println(((CalendarView)findViewById(R.id.calendarView)).getChildAt(0));
         System.out.println(((CalendarView)findViewById(R.id.calendarView)).getChildAt(0).getClass());
-    }
 
+        Date date = new Date(((CalendarView)findViewById(R.id.calendarView)).getDate());
+        System.out.println(date);
+        System.out.println(date.getDay());
+        System.out.println(date.getYear());
+        System.out.println(date.getMonth());
+        System.out.println(date.);
+
+
+
+        System.out.println(((CalendarView)findViewById(R.id.calendarView)).findFocus());
+        System.out.println(((CalendarView)findViewById(R.id.calendarView)).isDrawingCacheEnabled());
+
+    }
 
 }

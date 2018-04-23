@@ -46,8 +46,12 @@ public abstract class Calendar {
                 if (calendars == null) {
                     //TODO: Replace with pull from database if arraylist is null. This would take
                     //TODO: care of the updating we need
+                    //TODO: pull the events from database, and make new calendars for each calendar
+                    //TODO: of origin, and add the events. Then add the calendars to calendars
+                    //TODO: call scheduleevent
                     calendars = new ArrayList<>();
                     //add 10 calendars
+                    //TODO: replace
                     for (int i = 0; i < 10; i++) {
                         calendars.add(new CalSyncCalendar("CalSyncCalendar" + i));
                     }

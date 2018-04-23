@@ -16,11 +16,12 @@ public class Scheduler {
     }
 
     public void scheduleEvent(Event toSchedule) {
-        //TODO:
+        //TODO: place event on the view for our calendar view. Make tiny rectangle
+
     }
 
     //gets a reference to the calendar view in the main activity
     public static void setCalendarView(CalendarView _mainCalendar) {
-        mainCalendar = _mainCalendar;   
+        mainCalendar = _mainCalendar;
     }
 }
