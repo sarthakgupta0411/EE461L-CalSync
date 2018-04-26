@@ -17,16 +17,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ArrayList<Calendar> calendars = Calendar.getCalendars();
+        ArrayList<MainCalendar> calendars = MainCalendar.getCalendars();
+
+        System.out.println("Got the calendars: " + calendars.size());
 
         // Find the Linear layout in the ScrollView
         LinearLayout sv = findViewById(R.id.linearLayout);
 
         // Add each calendar as a checkbox object to the linear layout
-        for(Calendar cal : calendars) {
+        for(MainCalendar cal : calendars) {
             CheckBox cb = new CheckBox(this);
             // Add text
             cb.setText(cal.name);
+            //set checked
+            cb.setChecked(true);
             // Set color
             cb.setTextColor(getResources().getColor(R.color.calsync_theme_foreground));
             // Add to view
@@ -53,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println(date.getDay());
         System.out.println(date.getYear());
         System.out.println(date.getMonth());
-        System.out.println(date.);
+
 
 
 

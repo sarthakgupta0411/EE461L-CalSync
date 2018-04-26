@@ -1,6 +1,6 @@
 package software.design.teamorangecalsync;
 
-public class CalSyncCalendar extends Calendar {
+public class CalSyncCalendar extends MainCalendar {
 
     public CalSyncCalendar() {
         super("CalSyncCalendar");
