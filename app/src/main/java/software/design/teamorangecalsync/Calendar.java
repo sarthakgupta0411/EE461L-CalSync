@@ -6,13 +6,12 @@ import java.util.List;
 
 public abstract class Calendar {
 
-    //Holds all the calendars in the project
-    private static ArrayList<Calendar> calendars;
-    //keeps track of the type of calendar by calendar name
-    private static HashMap<String, Class> calendarNames;
+    // Private Calendar class fields
+    private static ArrayList<Calendar> calendars;  //Holds all the calendars in the project
+    private static HashMap<String, Class> calendarNames;  //keeps track of the type of calendar by calendar name
 
 
-    //Calendar attributes
+    // Calendar Object attributes
     private String calendarName;
     private ArrayList<Event> events;
 
@@ -20,19 +19,18 @@ public abstract class Calendar {
     private int color;
     private int id;
 
-    //checks if the list of calendars has been fetched first
+
+    // Constructors
     private Calendar() {
 
         if (calendars == null) {
-            //will initialize if null
             fetchCalendars();
         }
         if (calendarNames == null) {
             //TODO: get calendarNames from local storage
             calendarNames = new HashMap<>();
         }
-        //adds newly created subclass calendar onto calendar list
-        calendars.add(this);
+        calendars.add(this);  //adds newly created subclass calendars onto calendar list
 
     }
     protected Calendar(String name) {
@@ -74,7 +72,6 @@ public abstract class Calendar {
     }
 
 
-
     protected void uploadToDatabase() {
         //push the code to the database
     }
@@ -96,7 +93,7 @@ public abstract class Calendar {
                 return cal;
             }
         }
-        return null;    //returns null if calendar not found
+        return null;    //returns null if not found
 
     }
 

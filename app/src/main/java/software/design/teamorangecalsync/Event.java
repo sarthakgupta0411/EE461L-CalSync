@@ -1,17 +1,21 @@
 package software.design.teamorangecalsync;
 
+import java.util.HashMap;
+
 public class Event {
 
-    protected String eventName; //name of the event
-    protected String calendarName;  // name of the calendar for this event
+    private HashMap<String, Object> properties;  //properties as a hashmap
 
-    protected int color;
+    private String eventName; //name of the event
+    private String calendarName;  // name of the calendar for this event
+    private int color;
 
-    // "calendarOfOrigin", "EE461L "
-    // "due date"
-    // "event name", "name"
-    protected void setProperty(String proterty, String value) {
 
+    //pass it the name of the property and the object (Date, int, String) associated with it
+    public void setProperty(String proterty, Object value) {
+        properties.put(proterty, value);
     }
+
+    
 
 }
