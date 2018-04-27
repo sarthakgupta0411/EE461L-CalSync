@@ -1,7 +1,10 @@
 package software.design.teamorangecalsync;
 
+import android.widget.ArrayAdapter;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,7 +17,7 @@ public abstract class MainCalendar {
 
     // MainCalendar Object attributes
     private String calendarName;
-    private HashMap<Calendar, ArrayList<Event>> events;    //TODO: this might not be the best data structure for it, thoughts?
+    private HashMap<Date, ArrayList<Event>> events;    //TODO: this might not be the best data structure for it, thoughts?
 
     private boolean active;
     private int color;
@@ -27,7 +30,8 @@ public abstract class MainCalendar {
     private MainCalendar() {
 
         if (calendars == null) {
-            fetchCalendars();
+            calendars = new ArrayList<>();
+            fetchCalendars();   //add calendars to the arraylist
         }
         if (calendarNames == null) {
             //TODO: get calendarNames from local storage
@@ -38,6 +42,7 @@ public abstract class MainCalendar {
     }
     protected MainCalendar(String name) {
 
+        this();
         calendarName = name;
         if ( !calendarNames.containsKey(name) ) {
             calendarNames.put(name, this.getClass());
@@ -49,9 +54,25 @@ public abstract class MainCalendar {
     }
 
 
+    //public functions
+    public boolean addEvent(Date date, Event event) {
+        if(!events.containsKey(date)) {
+            events.put(date, new ArrayList<Event>());
+        }
+        events.get(date).add(event);
+        return true;
+    }
+    public void uploadToDatabase() {
+        //push the code to the database
+    }
+
+
     // public getters
     public int getColor() {
         return color;
+    }
+    public HashMap<Date, ArrayList<Event>> getEvents() {
+        return events;
     }
     public int getId() {
         return id;
@@ -80,18 +101,16 @@ public abstract class MainCalendar {
     }   //returns success in setting
 
 
-    protected void uploadToDatabase() {
-        //push the code to the database
-    }
-
-
 
     //public class methods
     public static ArrayList<MainCalendar> getCalendars() {
         //get from database
-        if (calendars == null) {
-            fetchCalendars();
-        }
+        //TODO: comment out this test after proper implementation
+        setupTestCalendarList();
+        //TODO: uncomment these after proper implementation
+        //if (calendars == null) {
+        //    fetchCalendars();
+        //}
         return calendars;
     }
     public static MainCalendar getCalendarByName(String name) {
@@ -106,6 +125,22 @@ public abstract class MainCalendar {
     }
 
 
+    //Makes test calendar list for implementing the front end stuff
+    private static void setupTestCalendarList() {
+        calendars = new ArrayList<MainCalendar>();
+
+        for(int i = 0; i < 3; i++) {
+            //create 3 calendars
+            CalSyncCalendar cSCal = new CalSyncCalendar("TestCalendar" + i);
+            for(int j = i; j < 3; j++) {
+                //add 3 events on the first, 2 on the second, 1 on the third
+                Date date = new Date(2018, 4, 27 + i);
+                cSCal.addEvent(date, new Event("RandomEvent" + j));
+            }
+        }
+
+    }
+
 
     //private class helper methods
     private static void fetchCalendars() {
@@ -119,7 +154,6 @@ public abstract class MainCalendar {
             }
         }
     }
-
     //optionally implement this differently, or implement fetchEvents from database
     private static List<MainCalendar> fetchCalendarsFromDatabase() {
         return organizeEventsIntoCalendars( fetchEventsFromDatabase() );
@@ -133,13 +167,10 @@ public abstract class MainCalendar {
 
         return eventsFromDatabase;
     }
-
     //implement where assignments extend events, and this is returned
     private static List<Event> fetchEventsFromCanvas() {
         return null;
     }
-
-
     private static List<MainCalendar> organizeEventsIntoCalendars(List<Event> evnetsToOrganize) {
         ArrayList<MainCalendar> calendarList = new ArrayList<>();
         //TODO: Get the event. Assuming the event contains the name of the calendar of origin,
@@ -150,4 +181,5 @@ public abstract class MainCalendar {
 
         return calendarList;
     }
+
 }

@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         addCalendarsToScrollView();
-        addEventsToCalendarView();
+       // addEventsToCalendarView();
     }
 
 
@@ -30,12 +30,12 @@ public class MainActivity extends AppCompatActivity {
         for(MainCalendar cal : calendars) {
             CheckBox checkBox = new CheckBox(this);
 
-            checkBox.setText(cal.getName());       // Add text
-            checkBox.setId(cal.getId());           // Set id
-            checkBox.setTextColor(cal.getColor()); // Set color
-            checkBox.setChecked(cal.isActive());   // Set checkbox checked
+            checkBox.setText(cal.getName());        // Add text
+            //checkBox.setId(cal.getId());            // Set id
+            //checkBox.setTextColor(cal.getColor());  // Set color
+            //checkBox.setChecked(cal.isActive());    // Set checkbox checked
 
-            sv.addView(checkBox);                  // Add to scroll view
+            sv.addView(checkBox);                   // Add to scroll view
         }
 
     }
@@ -43,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         //TODO: implement this using the compact calendar view component from the git API
 
         ArrayList<MainCalendar> calendars = MainCalendar.getCalendars();
+        //The events are stored in a hashmap, where the key is the date of the event, and the value is an arraylist of all the events that day.
+        //To get reference to the events for a day ArrayList<Event> = calendar.getEvents().get(new Date(year, month, day));
+        //You can run through the arraylist like normal. Look through MainCalendar for more
         /*  for every calendar in the calendars
          *      check if the calendar is active
          *      for every day in the current month in the calendar view
