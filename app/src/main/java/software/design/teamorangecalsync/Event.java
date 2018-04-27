@@ -16,6 +16,4 @@ public class Event {
         properties.put(proterty, value);
     }
 
-    
-
 }

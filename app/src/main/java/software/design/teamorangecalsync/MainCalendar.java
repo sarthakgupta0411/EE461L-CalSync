@@ -19,6 +19,8 @@ public abstract class MainCalendar {
     private int color;
     private int id;
 
+    protected boolean locked;
+
 
     // Constructors
     private MainCalendar() {
@@ -59,6 +61,7 @@ public abstract class MainCalendar {
     public boolean isActive() {
         return active;
     }
+    public boolean isLocked() { return locked; }
 
     //public setters
     public void setColor(int color) {
@@ -70,6 +73,10 @@ public abstract class MainCalendar {
     public void setActive(boolean value) {
         active = value;
     }
+    public boolean setLocked(boolean value) {
+        locked = value;
+        return true;
+    }   //returns success in setting
 
 
     protected void uploadToDatabase() {
@@ -128,7 +135,7 @@ public abstract class MainCalendar {
 
     //implement where assignments extend events, and this is returned
     private static List<Event> fetchEventsFromCanvas() {
-
+        return null;
     }
 
 
