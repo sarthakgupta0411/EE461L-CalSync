@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
          *          check if any event in the calendar
          *              say events added are 0 so far
          *              while there are events and events added less than 3 (or 5, you pick how many circles you want)
-         *                  add the event to the calendar view using the api
+         *                  if event is not already there (check day with api)
+         *                      add the event to the calendar view using the api
          */
     }
 
