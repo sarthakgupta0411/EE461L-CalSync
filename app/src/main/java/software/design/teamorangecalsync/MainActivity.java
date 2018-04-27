@@ -20,13 +20,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void addCalendarsToScrollView() {
 
-        ArrayList<Calendar> calendars = Calendar.getCalendars();
+        ArrayList<MainCalendar> calendars = MainCalendar.getCalendars();
 
         // Find the Linear layout in the ScrollView
         LinearLayout sv = findViewById(R.id.linearLayout);
 
         // Add each calendar as a checkbox object to the linear layout
-        for(Calendar cal : calendars) {
+        for(MainCalendar cal : calendars) {
             CheckBox checkBox = new CheckBox(this);
 
             checkBox.setText(cal.getName());       // Add text

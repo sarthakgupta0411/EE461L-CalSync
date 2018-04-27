@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public abstract class Calendar {
+public abstract class MainCalendar {
 
-    // Private Calendar class fields
-    private static ArrayList<Calendar> calendars;  //Holds all the calendars in the project
+    // Private MainCalendar class fields
+    private static ArrayList<MainCalendar> calendars;  //Holds all the calendars in the project
     private static HashMap<String, Class> calendarNames;  //keeps track of the type of calendar by calendar name
 
 
-    // Calendar Object attributes
+    // MainCalendar Object attributes
     private String calendarName;
     private ArrayList<Event> events;
 
@@ -21,7 +21,7 @@ public abstract class Calendar {
 
 
     // Constructors
-    private Calendar() {
+    private MainCalendar() {
 
         if (calendars == null) {
             fetchCalendars();
@@ -33,7 +33,7 @@ public abstract class Calendar {
         calendars.add(this);  //adds newly created subclass calendars onto calendar list
 
     }
-    protected Calendar(String name) {
+    protected MainCalendar(String name) {
 
         calendarName = name;
         if ( !calendarNames.containsKey(name) ) {
@@ -79,16 +79,16 @@ public abstract class Calendar {
 
 
     //public class methods
-    public static ArrayList<Calendar> getCalendars() {
+    public static ArrayList<MainCalendar> getCalendars() {
         //get from database
         if (calendars == null) {
             fetchCalendars();
         }
         return calendars;
     }
-    public static Calendar getCalendarByName(String name) {
+    public static MainCalendar getCalendarByName(String name) {
 
-        for(Calendar cal : calendars) {
+        for(MainCalendar cal : calendars) {
             if (cal.getName().equals(name)) {
                 return cal;
             }
@@ -102,7 +102,7 @@ public abstract class Calendar {
     //private class helper methods
     private static void fetchCalendars() {
         if (calendars == null) {
-            synchronized (Calendar.class) {   //thread safe synchronization
+            synchronized (MainCalendar.class) {   //thread safe synchronization
                 if (calendars == null) {
                     calendars = new ArrayList<>();
                     //TODO: Replace with pull from database if arraylist is null. This would take
@@ -113,7 +113,7 @@ public abstract class Calendar {
     }
 
     //optionally implement this differently, or implement fetchEvents from database
-    private static List<Calendar> fetchCalendarsFromDatabase() {
+    private static List<MainCalendar> fetchCalendarsFromDatabase() {
         return organizeEventsIntoCalendars( fetchEventsFromDatabase() );
     }
     //implement
@@ -132,8 +132,8 @@ public abstract class Calendar {
     }
 
 
-    private static List<Calendar> organizeEventsIntoCalendars(List<Event> evnetsToOrganize) {
-        ArrayList<Calendar> calendarList = new ArrayList<>();
+    private static List<MainCalendar> organizeEventsIntoCalendars(List<Event> evnetsToOrganize) {
+        ArrayList<MainCalendar> calendarList = new ArrayList<>();
         //TODO: Get the event. Assuming the event contains the name of the calendar of origin,
         //TODO:   get the name of the name of the calendar and search in the knownCalendars for the
         //TODO:   class associated with that calendar. Use this class to get instances of the
