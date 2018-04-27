@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         addCalendarsToScrollView();
+        addEventsToCalendarView();
     }
 
 
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void addEventsToCalendarView() {
+        //TODO: implement this using the compact calendar view component from the git API
 
     }
 

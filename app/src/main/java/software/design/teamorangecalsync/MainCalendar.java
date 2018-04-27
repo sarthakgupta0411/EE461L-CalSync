@@ -1,6 +1,7 @@
 package software.design.teamorangecalsync;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public abstract class MainCalendar {
 
     // MainCalendar Object attributes
     private String calendarName;
-    private ArrayList<Event> events;
+    private HashMap<Calendar, Event> events;
 
     private boolean active;
     private int color;
@@ -42,7 +43,7 @@ public abstract class MainCalendar {
             calendarNames.put(name, this.getClass());
         }
 
-        events = new ArrayList<Event>();
+        events = new HashMap<>();
         id = name.hashCode();
 
     }
