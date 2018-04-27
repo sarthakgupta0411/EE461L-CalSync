@@ -42,6 +42,15 @@ public class MainActivity extends AppCompatActivity {
     private void addEventsToCalendarView() {
         //TODO: implement this using the compact calendar view component from the git API
 
+        ArrayList<MainCalendar> calendars = MainCalendar.getCalendars();
+        /*  for every calendar in the calendars
+         *      check if the calendar is active
+         *      for every day in the current month in the calendar view
+         *          check if any event in the calendar
+         *              say events added are 0 so far
+         *              while there are events and events added less than 3 (or 5, you pick how many circles you want)
+         *                  add the event to the calendar view using the api
+         */
     }
 
 }

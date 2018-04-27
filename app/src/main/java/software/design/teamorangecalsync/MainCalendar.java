@@ -14,7 +14,7 @@ public abstract class MainCalendar {
 
     // MainCalendar Object attributes
     private String calendarName;
-    private HashMap<Calendar, Event> events;
+    private HashMap<Calendar, ArrayList<Event>> events;    //TODO: this might not be the best data structure for it, thoughts?
 
     private boolean active;
     private int color;
