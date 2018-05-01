@@ -24,4 +24,6 @@ public class Event {
         return eventName;
     }
 
+    //TODO: implement the .equals method
+
 }
