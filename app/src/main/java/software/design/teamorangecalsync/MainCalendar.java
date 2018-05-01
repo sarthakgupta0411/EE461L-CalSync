@@ -1,9 +1,6 @@
 package software.design.teamorangecalsync;
 
-import android.widget.ArrayAdapter;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -153,15 +150,9 @@ public abstract class MainCalendar {
             }
         }
     }
-    //optionally implement this differently, or implement fetchEvents from database
     private static List<MainCalendar> fetchCalendarsFromDatabase() {
         return organizeEventsIntoCalendars( Database.fetchEventsFromDatabase() );
     }
-    //implement where assignments extend events, and this is returned
-    private static List<Event> fetchEventsFromCanvas() {
-        return null;
-    }
-
     private static List<MainCalendar> organizeEventsIntoCalendars(List<Event> evnetsToOrganize) {
         ArrayList<MainCalendar> calendarList = new ArrayList<>();
         //TODO: Get the event. Assuming the event contains the name of the calendar of origin,
@@ -174,5 +165,17 @@ public abstract class MainCalendar {
     }
 
     //TODO: add methods to add all the events from google and canvas calendar by using the scheduler
+    //TODO: implement where assignments extend events, and this is returned
+    //TODO: this may not be the best implementation. We could use the ones at the end of the file
+    private static List<Event> fetchEventsFromCanvas() {
+        return null;
+    }
+
+    //TODO: For whoever adds the the google calendars api
+    private static List<Event> fetchEventsFromGoogle() { return null; }
+
+    //TODO: think about how to update the calendars with these abstract methods
+    public abstract void update();
+    public abstract List<Event> fetch();
 
 }
