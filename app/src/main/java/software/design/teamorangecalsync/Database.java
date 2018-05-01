@@ -1,0 +1,13 @@
+package software.design.teamorangecalsync;
+
+//singleton for database management
+public class Database {
+    private static final Database ourInstance = new Database();
+
+    public static Database getInstance() {
+        return ourInstance;
+    }
+
+    private Database() {
+    }
+}
