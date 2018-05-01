@@ -17,7 +17,7 @@ public abstract class MainCalendar {
 
     // MainCalendar Object attributes
     private String calendarName;
-    private HashMap<Date, ArrayList<Event>> events;    //TODO: this might not be the best data structure for it, thoughts?
+    private HashMap<Date, ArrayList<Event>> events;
 
     private boolean active;
     private int color;
@@ -148,7 +148,6 @@ public abstract class MainCalendar {
             synchronized (MainCalendar.class) {   //thread safe synchronization
                 if (calendars == null) {
                     calendars = new ArrayList<>();
-                    //TODO: Replace with pull from database if arraylist is null. This would take
                     calendars.addAll(fetchCalendarsFromDatabase());
                 }
             }
@@ -156,21 +155,13 @@ public abstract class MainCalendar {
     }
     //optionally implement this differently, or implement fetchEvents from database
     private static List<MainCalendar> fetchCalendarsFromDatabase() {
-        return organizeEventsIntoCalendars( fetchEventsFromDatabase() );
-    }
-    //implement
-    private static List<Event> fetchEventsFromDatabase() {
-        List<Event> eventsFromDatabase = new ArrayList<>(); //doesn't have to be arraylist, just a list
-
-        //TODO: Add code for fetching the events and add them to the list of elements
-        //TODO: Create events by passing it the properties and
-
-        return eventsFromDatabase;
+        return organizeEventsIntoCalendars( Database.fetchEventsFromDatabase() );
     }
     //implement where assignments extend events, and this is returned
     private static List<Event> fetchEventsFromCanvas() {
         return null;
     }
+
     private static List<MainCalendar> organizeEventsIntoCalendars(List<Event> evnetsToOrganize) {
         ArrayList<MainCalendar> calendarList = new ArrayList<>();
         //TODO: Get the event. Assuming the event contains the name of the calendar of origin,
@@ -181,5 +172,7 @@ public abstract class MainCalendar {
 
         return calendarList;
     }
+
+    //TODO: add methods to add all the events from google and canvas calendar by using the scheduler
 
 }

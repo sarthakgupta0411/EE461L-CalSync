@@ -2,7 +2,9 @@ package software.design.teamorangecalsync;
 
 import android.provider.ContactsContract;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 //singleton for database management
 public class Database {
@@ -55,5 +57,15 @@ public class Database {
     /**
      * TODO: @Nikhil. Add your methods for database management here. Download, upload, update, etc.
      */
+
+    //implement
+    public static List<Event> fetchEventsFromDatabase() {
+        List<Event> eventsFromDatabase = new ArrayList<>(); //doesn't have to be arraylist, just a list
+
+        //TODO: Add code for fetching the events and add them to the list of elements
+        //TODO: Create events by passing it the properties and
+
+        return eventsFromDatabase;
+    }
 
 }

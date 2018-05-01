@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void addEventsToCalendarView() {
-        //TODO: implement this using the compact calendar view component from the git API
+        //TODO: @Sierra implement this using the compact calendar view component from the git API
 
         ArrayList<MainCalendar> calendars = MainCalendar.getCalendars();
         //The events are stored in a hashmap, where the key is the date of the event, and the value is an arraylist of all the events that day.
