@@ -15,6 +15,18 @@
                     android:layout_height="wrap_content"
                     tools:context=".AddEvent">
 
+                        <Button
+                            android:id="@+id/OkButton"
+                            style="@android:style/Widget.DeviceDefault.Light.Button"
+                            android:onClick = "onClickOkButton"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="550dp"
+                            android:text="Ok"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toStartOf="@+id/title"
+                            app:layout_constraintTop_toBottomOf="@+id/title"
+                            />
                         <EditText
                             android:id="@+id/InputNotes"
                             style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
@@ -26,7 +38,7 @@
                             app:layout_constraintStart_toStartOf="@+id/title"
                             app:layout_constraintTop_toBottomOf="@+id/title" />
                         <TextView
-                            android:id="@+id/extraNotes"
+                            android:id="@+id/ExtraNotes"
                             android:layout_width="wrap_content"
                             android:layout_height="25dp"
                             android:layout_marginStart="4dp"
@@ -47,7 +59,7 @@
                             app:layout_constraintStart_toStartOf="@+id/title"
                             app:layout_constraintTop_toBottomOf="@+id/title" />
                         <TextView
-                            android:id="@+id/location"
+                            android:id="@+id/Location"
                             android:layout_width="wrap_content"
                             android:layout_height="25dp"
                             android:layout_marginStart="4dp"
@@ -59,7 +71,7 @@
                             tools:text="Location:" />
 
                         <TextView
-                            android:id="@+id/endTime"
+                            android:id="@+id/EndTime"
                             android:layout_width="wrap_content"
                             android:layout_height="25dp"
                             android:layout_marginStart="4dp"
@@ -71,7 +83,7 @@
                             tools:text="End Time:" />
 
                         <EditText
-                            android:id="@+id/minuteInputEnd"
+                            android:id="@+id/MinuteInputEnd"
                             style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
                             android:layout_width="62dp"
                             android:layout_height="42dp"
@@ -84,7 +96,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/title" />
 
                         <EditText
-                            android:id="@+id/hourInputEnd"
+                            android:id="@+id/HourInputEnd"
                             style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
                             android:layout_width="64dp"
                             android:layout_height="42dp"
@@ -110,7 +122,7 @@
                             tools:text=":" />
 
                         <EditText
-                            android:id="@+id/dateInputEnd"
+                            android:id="@+id/DateInputEnd"
                             style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
                             android:layout_width="127dp"
                             android:layout_height="43dp"
@@ -122,7 +134,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/title" />
 
                         <EditText
-                            android:id="@+id/minuteInputStart"
+                            android:id="@+id/MinuteInputStart"
                             style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
                             android:layout_width="62dp"
                             android:layout_height="42dp"
@@ -148,7 +160,7 @@
                             tools:text=":" />
 
                         <EditText
-                            android:id="@+id/hourInputStart"
+                            android:id="@+id/HourInputStart"
                             style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
                             android:layout_width="64dp"
                             android:layout_height="42dp"
@@ -161,7 +173,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/title" />
 
                         <EditText
-                            android:id="@+id/dateInputStart"
+                            android:id="@+id/DateInputStart"
                             style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
                             android:layout_width="127dp"
                             android:layout_height="43dp"
@@ -173,7 +185,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/title" />
 
                         <TextView
-                            android:id="@+id/startTime"
+                            android:id="@+id/StartTime"
                             android:layout_width="wrap_content"
                             android:layout_height="25dp"
                             android:layout_marginTop="84dp"
@@ -213,7 +225,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <EditText
-                            android:id="@+id/titleInput"
+                            android:id="@+id/TitleInput"
                             style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
                             android:layout_width="324dp"
                             android:layout_height="45dp"
