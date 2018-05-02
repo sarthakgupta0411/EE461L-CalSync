@@ -1,29 +1,29 @@
 package software.design.teamorangecalsync;
 
+import java.util.Date;
 import java.util.HashMap;
 
 public class Event {
 
-    private HashMap<String, Object> properties;  //properties as a hashmap
-
-    private String eventName; //name of the event
-    private String calendarName;  // name of the calendar for this event
-    private int color;
-
-    public Event(String _eventName) {
-        eventName = _eventName;
-    }
-
-    //pass it the name of the property and the object (Date, int, String) associated with it
-    public void setProperty(String proterty, Object value) {
-        properties.put(proterty, value);
-    }
+    private EventMetadata properties;
+    public Event() {}
 
     @Override
     public String toString() {
-        return eventName;
+        return properties.title;
     }
 
     //TODO: implement the .equals method
+
+}
+
+class EventMetadata {
+
+    public String title;    //name of the event
+    public Date startTime;  //start date and time within the date object
+    public Date endTime;    //end date and time
+
+    public String location;   //location for the
+    public String extraNotes; //description
 
 }

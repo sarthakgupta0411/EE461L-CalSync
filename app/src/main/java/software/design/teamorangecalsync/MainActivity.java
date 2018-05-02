@@ -3,6 +3,7 @@ package software.design.teamorangecalsync;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;

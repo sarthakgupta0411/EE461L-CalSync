@@ -10,17 +10,7 @@ public abstract class MainCalendar {
     // Private MainCalendar class fields
     private static ArrayList<MainCalendar> calendars;  //Holds all the calendars in the project
     private static HashMap<String, Class> calendarNames;  //keeps track of the type of calendar by calendar name
-
-
-    // MainCalendar Object attributes
-    private String calendarName;
-    private HashMap<Date, ArrayList<Event>> events;
-
-    private boolean active;
-    private int color;
-    private int id;
-
-    protected boolean locked;
+    protected final FlexibleCalendar flexibleCalendar = new FlexibleCalendar();
 
 
     // Constructors
@@ -40,61 +30,59 @@ public abstract class MainCalendar {
     protected MainCalendar(String name) {
 
         this();
-        calendarName = name;
+        flexibleCalendar.calendarName = name;
         if ( !calendarNames.containsKey(name) ) {
             calendarNames.put(name, this.getClass());
         }
 
-        events = new HashMap<>();
-        id = name.hashCode();
+        flexibleCalendar.events = new HashMap<>();
+        flexibleCalendar.id = name.hashCode();
 
     }
 
 
     //public functions
     public boolean addEvent(Date date, Event event) {
-        if(!events.containsKey(date)) {
-            events.put(date, new ArrayList<Event>());
-        }
-        events.get(date).add(event);
-        return true;
+        return flexibleCalendar.addEvent(date, event);
     }
     public void uploadToDatabase() {
         //push the code to the database
+        flexibleCalendar.uploadToDatabase();
     }
 
 
     // public getters
     public int getColor() {
-        return color;
+        return flexibleCalendar.getColor();
     }
     public HashMap<Date, ArrayList<Event>> getEvents() {
-        return events;
+        return flexibleCalendar.getEvents();
     }
     public int getId() {
-        return id;
+        return flexibleCalendar.getId();
     }
     public String getName() {
-        return calendarName;
+        return flexibleCalendar.getName();
     }
     public boolean isActive() {
-        return active;
+        return flexibleCalendar.isActive();
     }
-    public boolean isLocked() { return locked; }
+    public boolean isLocked() {
+        return flexibleCalendar.isLocked();
+    }
 
     //public setters
     public void setColor(int color) {
-        this.color = color;
+        flexibleCalendar.setColor(color);
     }
     public void setName(String name) {
-        calendarName = name;
+        flexibleCalendar.setName(name);
     }
     public void setActive(boolean value) {
-        active = value;
+        flexibleCalendar.setActive(value);
     }
     public boolean setLocked(boolean value) {
-        locked = value;
-        return true;
+        return flexibleCalendar.setLocked(value);
     }   //returns success in setting
 
 
