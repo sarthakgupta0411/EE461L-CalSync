@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             checkBox.setText(cal.getName());        // Add text
             //checkBox.setId(cal.getId());            // Set id
             //checkBox.setTextColor(cal.getColor());  // Set color
-            //checkBox.setChecked(cal.isActive());    // Set checkbox checked
+            //checkBox.setChecked(cal.isVisible());    // Set checkbox checked
 
             sv.addView(checkBox);                   // Add to scroll view
         }
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         //To get reference to the events for a day ArrayList<Event> = calendar.getEvents().get(new Date(year, month, day));
         //You can run through the arraylist like normal. Look through MainCalendar for more
         /*  for every calendar in the calendars
-         *      check if the calendar is active
+         *      check if the calendar is visible
          *      for every day in the current month in the calendar view
          *          check if any event in the calendar
          *              say events added are 0 so far

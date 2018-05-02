@@ -65,7 +65,7 @@ public abstract class MainCalendar {
         return flexibleCalendar.getName();
     }
     public boolean isActive() {
-        return flexibleCalendar.isActive();
+        return flexibleCalendar.isVisible();
     }
     public boolean isLocked() {
         return flexibleCalendar.isLocked();
@@ -79,7 +79,7 @@ public abstract class MainCalendar {
         flexibleCalendar.setName(name);
     }
     public void setActive(boolean value) {
-        flexibleCalendar.setActive(value);
+        flexibleCalendar.setVisible(value);
     }
     public boolean setLocked(boolean value) {
         return flexibleCalendar.setLocked(value);

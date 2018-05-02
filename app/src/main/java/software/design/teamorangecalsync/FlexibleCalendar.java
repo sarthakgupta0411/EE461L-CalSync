@@ -1,17 +1,21 @@
 package software.design.teamorangecalsync;
 
+import android.util.Base64OutputStream;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
 public class FlexibleCalendar {// MainCalendar Object attributes
 
+    //calendar properties
     public String calendarName;
     public HashMap<Date, ArrayList<Event>> events;
-    public boolean active;
+
+    public boolean locked;
+    public boolean visible;
     public int color;
     public int id;
-    public boolean locked;
 
     public FlexibleCalendar() {
     }//public functions
@@ -44,8 +48,8 @@ public class FlexibleCalendar {// MainCalendar Object attributes
         return calendarName;
     }
 
-    public boolean isActive() {
-        return active;
+    public boolean isVisible() {
+        return visible;
     }
 
     public boolean isLocked() {
@@ -60,8 +64,8 @@ public class FlexibleCalendar {// MainCalendar Object attributes
         calendarName = name;
     }
 
-    public void setActive(boolean value) {
-        active = value;
+    public void setVisible(boolean value) {
+        visible = value;
     }
 
     public boolean setLocked(boolean value) {
