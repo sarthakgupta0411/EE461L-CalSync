@@ -18,6 +18,12 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
     private boolean visible = true;
     private int color;
     private int id;
+    
+    //Calendar context and name
+    public FlexibleCalendar(String name, Class calendarSubclass) {
+        this(name);
+        MainCalendar.mapCalendarToClass(name, calendarSubclass);
+    }
 
     //Calendar name constructor
     public FlexibleCalendar(String name) {
