@@ -1,7 +1,10 @@
 package software.design.teamorangecalsync;
 
+import android.content.Intent;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 
@@ -29,5 +32,10 @@ public class MainActivity extends AppCompatActivity {
             // Add to view
             sv.addView(cb);
         }
+    }
+
+    public void gotoAddFlyerEvent(View view) {
+        Intent takePictureIntent = new Intent(this,AddFlyerEvent.class);
+        startActivity(takePictureIntent);
     }
 }
