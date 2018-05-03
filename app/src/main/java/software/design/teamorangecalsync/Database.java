@@ -68,4 +68,41 @@ public class Database {
         return eventsFromDatabase;
     }
 
+    public static void addEvent(Event event) {
+        enqueueCommand(new AddEventDatabaseCommand(event));
+    }
+    public static void deleteEvent(Event event) {
+        //TODO: @anyone this logic could be simplified
+        DatabaseCommand previousChange = findCommandWithEvent(event);
+        if(previousChange != null) {
+            if(previousChange instanceof AddEventDatabaseCommand) {
+                //if previous change is a queued up add event command, just remove it
+                removeFromQueue(previousChange);
+            }
+            else {
+                //else it's an edit, in which case remove it and add a delete command
+                removeFromQueue(previousChange);
+                enqueueCommand(new DeleteEventDatabaseCommand(event));
+            }
+        }
+        else {
+            //else it needs to edit based on an event that was in the database
+            enqueueCommand(new DeleteEventDatabaseCommand(event));
+        }
+    }
+    public static void editEvent(Event oldEvent, Event newEvent) {
+        DatabaseCommand previousChange = findCommandWithEvent(oldEvent);
+        if(previousChange != null) {
+            DatabaseCommand newChange = previousChange;
+            removeFromQueue(previousChange);
+            //if it's a queued up add or an edit, just change the event changes, and enqueue last
+            newChange.setEvent(newEvent);
+            enqueueCommand(newChange);
+        }
+        else {
+            //else it needs to edit based on an event that was in the database
+            enqueueCommand(new EditEventDatabaseCommand(oldEvent, newEvent));
+        }
+    }
+
 }

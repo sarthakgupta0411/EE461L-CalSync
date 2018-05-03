@@ -1,6 +1,9 @@
 package software.design.teamorangecalsync;
 
-public class CalSyncCalendar extends MainCalendar {
+import java.util.ArrayList;
+import java.util.List;
+
+public class CalSyncCalendar extends FlexibleCalendar {
 
     public CalSyncCalendar(String name) {
         super(name);

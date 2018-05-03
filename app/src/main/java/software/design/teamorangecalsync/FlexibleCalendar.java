@@ -1,7 +1,5 @@
 package software.design.teamorangecalsync;
 
-import android.util.Base64OutputStream;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,7 +7,7 @@ import java.util.List;
 
 public abstract class FlexibleCalendar {// MainCalendar Object attributes
 
-    //calendar properties
+    //Calendar properties
     private String calendarName;
     private HashMap<Date, ArrayList<Event>> events = new HashMap<>();
 
@@ -18,14 +16,14 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
     private boolean visible = true;
     private int color;
     private int id;
-    
-    //Calendar context and name
+
+    //Calendar context and name. To be used by add calendar activity
     public FlexibleCalendar(String name, Class calendarSubclass) {
         this(name);
-        MainCalendar.mapCalendarToClass(name, calendarSubclass);
+        MainCalendar.mapCalendarToClass(getDisplayName(), calendarSubclass);
     }
 
-    //Calendar name constructor
+    //Calendar name constructor. To be used by MainCalendar for fetching already mapped calendars
     public FlexibleCalendar(String name) {
         if(name == null || name.replaceAll(" ", "").length() == 0) {
             name = "Unnamed";
@@ -43,8 +41,6 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
         //lazy add event function
         addEvent(event.getStartTime(), event);
     }
-
-    public abstract void syncCalendar(); //pull new events from their respective storage
 
     //Getters
     public int getColor() {
@@ -87,7 +83,7 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
         return true;
     }   //returns success in setting}
 
-    //private helper functions
+    //Private helper functions
     private void buildUniqueName(String name) {
         //TODO: search through the list of calendars and check for a similar name
         List<FlexibleCalendar> calendars = MainCalendar.getCalendars(); //get list
