@@ -41,6 +41,20 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
         //lazy add event function
         addEvent(event.getStartTime(), event);
     }
+    public void deleteEvent(Event event) {
+        if(!events.containsKey(event.getStartTime())) {
+            return;
+        }
+        events.get(event.getStartTime()).remove(event);
+    }
+    public void editEvent(Event oldEvent, Event newEvent) {
+        if(!events.containsKey(oldEvent.getStartTime())) {
+            return;
+        }
+        events.get(oldEvent.getStartTime()).remove(oldEvent);
+        events.get(oldEvent.getStartTime()).add(newEvent);
+    }
+
 
     //Getters
     public int getColor() {
