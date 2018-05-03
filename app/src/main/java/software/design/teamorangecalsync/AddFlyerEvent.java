@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -37,7 +39,7 @@ public class AddFlyerEvent extends AppCompatActivity {
         dispatchTakePictureIntent();
     }
 
-    public static final String subscriptionKey = "0ced1fcd78164918a4c825451ac701b0";
+    public static final String subscriptionKey = "ba39a14c81a64f1da56ce1cb59f8a0db";
     public static final String uriBase = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/ocr";
 
 
@@ -47,54 +49,76 @@ public class AddFlyerEvent extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         //this code will convert a file into a byte array....hopefully
-        Bitmap bm = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG,100,baos);
-        byte[] b = baos.toByteArray();
 
+
+        AsyncTask<String,String,String> myTask = new AsyncTask<String,String,String>() {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+
+            }
+
+            @Override
+            protected String doInBackground(String... strings) {
+                HttpClient httpClient = new DefaultHttpClient();
+
+                try
+                {
+
+                    Bitmap bm = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bm.compress(Bitmap.CompressFormat.JPEG,100,baos);
+                    byte[] b = baos.toByteArray();
+                    // NOTE: You must use the same location in your REST call as you used to obtain your subscription keys.
+                    //   For example, if you obtained your subscription keys from westus, replace "westcentralus" in the
+                    //   URL below with "westus".
+                    URIBuilder uriBuilder = new URIBuilder(uriBase);
+
+                    uriBuilder.setParameter("language", "unk");
+                    uriBuilder.setParameter("detectOrientation ", "true");
+
+                    // Request parameters.
+                    URI uri = uriBuilder.build();
+                    HttpPost request = new HttpPost(uri);
+
+                    // Request headers.
+                    request.setHeader("Content-Type", "application/octet-stream");
+                    request.setHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
+
+                    // Request body.
+                    request.setEntity(new ByteArrayEntity(b));
+                    // Execute the REST API call and get the response entity.
+                    HttpResponse response = httpClient.execute(request);
+                    HttpEntity entity = response.getEntity();
+
+                    if (entity != null)
+                    {
+                        // Format and display the JSON response.
+                        String jsonString = EntityUtils.toString(entity);
+                        JSONObject json = new JSONObject(jsonString);
+                        System.out.println("REST Response:\n");
+                        System.out.println(json.toString(2));
+                    }
+                }
+                catch (Exception e)
+                {
+                    // Display error message.
+                    System.out.println(e.getMessage());
+                }
+                return null;
+            }
+
+        };// ... your AsyncTask code goes here
+        System.out.println("here to get info");
+        if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.HONEYCOMB)
+            myTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        else
+            myTask.execute();
 
         //call API
 
-        HttpClient httpClient = new DefaultHttpClient();
 
-        try
-        {
-            // NOTE: You must use the same location in your REST call as you used to obtain your subscription keys.
-            //   For example, if you obtained your subscription keys from westus, replace "westcentralus" in the
-            //   URL below with "westus".
-            URIBuilder uriBuilder = new URIBuilder(uriBase);
-
-            uriBuilder.setParameter("language", "unk");
-            uriBuilder.setParameter("detectOrientation ", "true");
-
-            // Request parameters.
-            URI uri = uriBuilder.build();
-            HttpPost request = new HttpPost(uri);
-
-            // Request headers.
-            request.setHeader("Content-Type", "application/octet-stream");
-            request.setHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
-
-            // Request body.
-            request.setEntity(new ByteArrayEntity(b));
-            // Execute the REST API call and get the response entity.
-            HttpResponse response = httpClient.execute(request);
-            HttpEntity entity = response.getEntity();
-
-            if (entity != null)
-            {
-                // Format and display the JSON response.
-                String jsonString = EntityUtils.toString(entity);
-                JSONObject json = new JSONObject(jsonString);
-                System.out.println("REST Response:\n");
-                System.out.println(json.toString(2));
-            }
-        }
-        catch (Exception e)
-        {
-            // Display error message.
-            System.out.println(e.getMessage());
-        }
     }
 
     static final int REQUEST_TAKE_PHOTO = 1;
