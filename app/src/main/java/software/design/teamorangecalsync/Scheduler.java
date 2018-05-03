@@ -21,7 +21,7 @@ public class Scheduler {
         //TODO: add the front end to add the dot to the calendar
 
         //back end
-        Database.addEvent(event);
+
 
     }
 

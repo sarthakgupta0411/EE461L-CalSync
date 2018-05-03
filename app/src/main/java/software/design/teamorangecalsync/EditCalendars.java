@@ -10,4 +10,6 @@ public class EditCalendars extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_calendars);
     }
+
+
 }
