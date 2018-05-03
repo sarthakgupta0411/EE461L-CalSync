@@ -1,6 +1,6 @@
 package software.design.teamorangecalsync;
 
-//Handles front end scheduling for new events, and scheduling database changes
+//Handles front end scheduling for new events
 public class Scheduler {
 
     private static final Scheduler ourInstance = new Scheduler();
@@ -20,8 +20,6 @@ public class Scheduler {
         //front end
         //TODO: add the front end to add the dot to the calendar
 
-        //back end
-
 
     }
 
@@ -33,8 +31,6 @@ public class Scheduler {
         //front end
         //TODO: add the front end to delete the event form the calendarview
 
-        //back end
-        Database.deleteEvent(event);
 
     }
     /**
@@ -46,9 +42,6 @@ public class Scheduler {
     public void editEvent(Event oldEvent, Event newEvent) {
         //front end
         //TODO: add front end changes to edi the event in the calendar view
-
-        //backend
-        Database.editEvent(oldEvent, newEvent);
 
     }
 

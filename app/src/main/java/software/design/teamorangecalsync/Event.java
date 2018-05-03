@@ -1,5 +1,6 @@
 package software.design.teamorangecalsync;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -13,6 +14,7 @@ public class Event {
     private String extraNotes; //description
 
     private String calendarOfOrigin; //calendar name
+    private Date startDate;  //the day date of the event
 
     //full argument constructor (sorry for all the arguments. I thought it would make what we need clear)
     public Event(String _title, Date _startTime, Date _endTime, String _location, String _extraNotes, String _calendarOfOrigin) {
@@ -46,6 +48,9 @@ public class Event {
     public String getCalendarOfOrigin() {
         return calendarOfOrigin;
     }
+    public Date getStartDate() {
+        return startDate;
+    }
 
     //setters
     public void setTitle(String newTitle) {
@@ -65,6 +70,11 @@ public class Event {
     }
     public void setCalendarOfOrigin(String newCalendar) {
         calendarOfOrigin = newCalendar;
+    }
+    private void setStartDate(Date startTime) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(startTime.getYear(), startTime.getMonth(), startTime.getDay());
+        startDate = cal.getTime();
     }
 
     @Override

@@ -1,8 +1,11 @@
 package software.design.teamorangecalsync;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MainCalendar {
@@ -47,16 +50,41 @@ public class MainCalendar {
             synchronized (MainCalendar.class) {   //thread safe synchronization
                 if (calendars == null) {
                     calendars = new ArrayList<>();
-                    calendars.addAll(fetchCalendarsFromSources());
+                    calendars.addAll(fetchCalendarsFromAllSources());
                 }
             }
         }
     }
-    private static List<FlexibleCalendar> fetchCalendarsFromSources() {
-
+    private static List<FlexibleCalendar> fetchCalendarsFromAllSources() {
+        //compiles the calendars and
+        return organizeEventsIntoCalendars(fetchUniqueEventsFromAllSources());
     }
-    private static List<FlexibleCalendar> fetchCalendarsFromDatabase() {
-        return organizeEventsIntoCalendars( Database.fetchEventsFromDatabase() );
+    private static List<Event> fetchUniqueEventsFromAllSources() {
+        HashMap<Date, List<Event>> allEvents = new HashMap<>();
+
+        addUniqueEventsToMap(allEvents, Database.fetchEventsFromDatabase());
+        //addUniqueEventsToMap(allEvents, CanvasCalendar.fetchEvents());
+        //addUniqueEventsToMap(allEvents, GoogleCalendar.fetchEvents());
+
+        return mapToListOfEvents(allEvents);
+    }
+    private static void addUniqueEventsToMap(HashMap<Date, List<Event>> events, List<Event> list) {
+        for(Event event : list) {
+            if(!events.containsKey(event.getStartDate())) {
+                events.put(event.getStartDate(), new LinkedList<Event>());
+            }
+            List<Event> day = events.get(event.getStartDate());
+            boolean found = false;
+            for(Event inThatDay : day) {
+                if(inThatDay.equals(event)) {
+                    found = true;
+                    break;
+                }
+            }
+            if(!found) {
+                day.add(event);
+            }
+        }
     }
     private static List<FlexibleCalendar> organizeEventsIntoCalendars(List<Event> evnetsToOrganize) {
         ArrayList<FlexibleCalendar> calendarList = new ArrayList<>();
@@ -67,6 +95,14 @@ public class MainCalendar {
 
 
         return calendarList;
+    }
+    private static List<Event> mapToListOfEvents(HashMap<Date, List<Event>> map) {
+        List<Event> list = new LinkedList<>();
+        Collection<List<Event>> allDays = map.values();
+        for(List<Event> day : allDays) {
+            list.addAll(day);
+        }
+        return list;
     }
 
     //TODO: add methods to add all the events from google and canvas calendar by using the scheduler

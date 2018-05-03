@@ -36,6 +36,7 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
             events.put(date, new ArrayList<Event>());
         }
         events.get(date).add(event);
+        Scheduler.getInstance().addEvent(event);
     }
     public void addEvent(Event event) {
         //lazy add event function
@@ -46,6 +47,7 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
             return;
         }
         events.get(event.getStartTime()).remove(event);
+        Scheduler.getInstance().deleteEvent(event);
     }
     public void editEvent(Event oldEvent, Event newEvent) {
         if(!events.containsKey(oldEvent.getStartTime())) {
@@ -53,6 +55,7 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
         }
         events.get(oldEvent.getStartTime()).remove(oldEvent);
         events.get(oldEvent.getStartTime()).add(newEvent);
+        Scheduler.getInstance().editEvent(oldEvent, newEvent);
     }
 
 
@@ -99,7 +102,6 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
 
     //Private helper functions
     private void buildUniqueName(String name) {
-        //TODO: search through the list of calendars and check for a similar name
         List<FlexibleCalendar> calendars = MainCalendar.getCalendars(); //get list
         for(FlexibleCalendar cal : calendars) {
             if(cal.getName().equals(name)) {
