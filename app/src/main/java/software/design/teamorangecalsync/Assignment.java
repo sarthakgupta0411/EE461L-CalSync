@@ -6,7 +6,6 @@ public class Assignment extends Event {
 
     public Assignment(String assignment, Date dueDate, String description, String course) {
         super(assignment, dueDate, dueDate, null, description, course);
-        endTime.setTime(endTime.getTime() + 900000);   //adding 15 minutes to endTime
     }
 
     //getters (should not need to use these if we're just treating this as an Event object)

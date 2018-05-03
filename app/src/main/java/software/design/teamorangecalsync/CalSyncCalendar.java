@@ -17,7 +17,7 @@ public class CalSyncCalendar extends FlexibleCalendar {
     @Override
     public void addEvent(Event event) {
         //lazy add event function
-        super.addEvent(event.getStartTime(), event);
+        super.addEvent(event.getStartDate(), event);
         Database.addEvent(event);
     }
     @Override

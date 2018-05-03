@@ -17,12 +17,6 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
     private int color;
     private int id;
 
-    //Calendar context and name. To be used by add calendar activity
-    public FlexibleCalendar(String name, Class calendarSubclass) {
-        this(name);
-        MainCalendar.mapCalendarToClass(getDisplayName(), calendarSubclass);
-    }
-
     //Calendar name constructor. To be used by MainCalendar for fetching already mapped calendars
     public FlexibleCalendar(String name) {
         if(name == null || name.replaceAll(" ", "").length() == 0) {
@@ -40,21 +34,21 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
     }
     public void addEvent(Event event) {
         //lazy add event function
-        addEvent(event.getStartTime(), event);
+        addEvent(event.getStartDate(), event);
     }
     public void deleteEvent(Event event) {
-        if(!events.containsKey(event.getStartTime())) {
+        if(!events.containsKey(event.getStartDate())) {
             return;
         }
-        events.get(event.getStartTime()).remove(event);
+        events.get(event.getStartDate()).remove(event);
         Scheduler.getInstance().deleteEvent(event);
     }
     public void editEvent(Event oldEvent, Event newEvent) {
-        if(!events.containsKey(oldEvent.getStartTime())) {
+        if(!events.containsKey(oldEvent.getStartDate())) {
             return;
         }
-        events.get(oldEvent.getStartTime()).remove(oldEvent);
-        events.get(oldEvent.getStartTime()).add(newEvent);
+        events.get(oldEvent.getStartDate()).remove(oldEvent);
+        events.get(oldEvent.getStartDate()).add(newEvent);
         Scheduler.getInstance().editEvent(oldEvent, newEvent);
     }
 

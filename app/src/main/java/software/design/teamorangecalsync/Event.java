@@ -16,6 +16,12 @@ public class Event {
     private String calendarOfOrigin; //calendar name
     private Date startDate;  //the day date of the event
 
+    //constructor with single date
+    public Event(String _title, Date _startTime, String _location, String _extraNotes, String _calendarOfOrigin) {
+        this(_title, _startTime, _startTime, _location, _extraNotes, _calendarOfOrigin);
+        endTime.setTime(endTime.getTime() + 900000);   //adding 15 minutes to endTime
+    }
+
     //full argument constructor (sorry for all the arguments. I thought it would make what we need clear)
     public Event(String _title, Date _startTime, Date _endTime, String _location, String _extraNotes, String _calendarOfOrigin) {
         assert(_startTime != null); //these definitely should not be nulls

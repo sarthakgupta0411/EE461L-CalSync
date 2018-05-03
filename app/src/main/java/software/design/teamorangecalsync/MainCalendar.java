@@ -39,7 +39,9 @@ public class MainCalendar {
         return null;    //returns null if not found
     }
     public static void mapCalendarToClass(String name, Class calendar) {
-        calendarNames.put(name, calendar);
+        if(!calendarNames.containsKey(name)) {
+            calendarNames.put(name, calendar);
+        }
     }
 
 
@@ -63,8 +65,8 @@ public class MainCalendar {
         HashMap<Date, List<Event>> allEvents = new HashMap<>();
 
         addUniqueEventsToMap(allEvents, Database.fetchEventsFromDatabase());
-        //addUniqueEventsToMap(allEvents, CanvasCalendar.fetchEvents());
-        //addUniqueEventsToMap(allEvents, GoogleCalendar.fetchEvents());
+        addUniqueEventsToMap(allEvents, mapToListOfEvents(CanvasCalendar.fetchEvents()));
+        addUniqueEventsToMap(allEvents, GoogleCalendar.fetchEvents());
 
         return mapToListOfEvents(allEvents);
     }
@@ -86,17 +88,29 @@ public class MainCalendar {
             }
         }
     }
-    private static List<FlexibleCalendar> organizeEventsIntoCalendars(List<Event> evnetsToOrganize) {
-        ArrayList<FlexibleCalendar> calendarList = new ArrayList<>();
-        //TODO: Get the event. Assuming the event contains the name of the calendar of origin,
-        //TODO:   get the name of the name of the calendar and search in the knownCalendars for the
-        //TODO:   class associated with that calendar. Use this class to get instances of the
-        //TODO:   calendars using reflection
+    private static List<FlexibleCalendar> organizeEventsIntoCalendars(List<Event> eventsToOrganize) {
+        if(eventsToOrganize == null) {
+            return null;
+        }
+        List<FlexibleCalendar> calendarList = new LinkedList<>();
 
+        calendarNames.put("somecalendar", Canvas);
+
+        //TODO: Get the event. Assuming the event contains the name of the calendar of origin,
+        for(Event event : eventsToOrganize) {
+            //TODO:   get the name of the name of the calendar and search in the knownCalendars for the
+            //TODO:   class associated with that calendar. Use this class to get instances of the
+            //TODO:   calendars using reflection
+            String calendarOfOrigin = event.getCalendarOfOrigin();
+            Class
+        }
 
         return calendarList;
     }
-    private static List<Event> mapToListOfEvents(HashMap<Date, List<Event>> map) {
+    private static List<Event> mapToListOfEvents(HashMap<? extends Object, List<Event>> map) {
+        if(map == null) {
+            return null;
+        }
         List<Event> list = new LinkedList<>();
         Collection<List<Event>> allDays = map.values();
         for(List<Event> day : allDays) {
