@@ -1,12 +1,9 @@
 package software.design.teamorangecalsync;
 
-import android.widget.CalendarView;
-
+//Handles front end scheduling for new events
 public class Scheduler {
 
     private static final Scheduler ourInstance = new Scheduler();
-
-    private static CalendarView mainCalendar;
 
     public static Scheduler getInstance() {
         return ourInstance;
@@ -15,13 +12,37 @@ public class Scheduler {
     private Scheduler() {
     }
 
-    public void scheduleEvent(Event toSchedule) {
-        //TODO: place event on the view for our calendar view. Make tiny rectangle
+    /**
+     * Called from add event activities (where the event object should be created from the fields)
+     * @param event
+     */
+    public void addEvent(Event event) {
+        //front end
+        //TODO: add the front end to add the dot to the calendar
+
 
     }
 
-    //gets a reference to the calendar view in the main activity
-    public static void setCalendarView(CalendarView _mainCalendar) {
-        mainCalendar = _mainCalendar;
+    /**
+     * Called from any activity that delete
+     * @param event
+     */
+    public void deleteEvent(Event event) {
+        //front end
+        //TODO: add the front end to delete the event form the calendarview
+
+
     }
+    /**
+     * Called from the edit event activity. A new event needs to be created with the edits
+     * These cases, I assume, never happens: delete+edit, editing without an existing event
+     * @param oldEvent
+     * @param newEvent
+     */
+    public void editEvent(Event oldEvent, Event newEvent) {
+        //front end
+        //TODO: add front end changes to edi the event in the calendar view
+
+    }
+
 }

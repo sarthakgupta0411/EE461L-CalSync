@@ -17,9 +17,9 @@ import java.util.concurrent.Executors;
 
 public class FetchCanvasCourseAssignments {
 
-    public  ArrayList<MainCalendar> fetchCanvasAssignmentInfo(){
+    public  ArrayList<FlexibleCalendar> fetchCanvasAssignmentInfo(){
         //System.out.println("here to get info111");
-        ArrayList<MainCalendar> mn = new ArrayList<>();
+        ArrayList<FlexibleCalendar> mn = new ArrayList<>();     //TODO: I changed it to flexible calendar, make sure everything with it makes sense
         Map<String, ArrayList<Event>> Alist= new HashMap<String, ArrayList<Event>>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
         String Access_Token = "1017~iPDnl3GFOa88Pf7cklx9pJ5Sre7ua4mA6DifYmIBn9fvdmYlqvKtJrLxxQ1MkKSt";
@@ -65,7 +65,7 @@ public class FetchCanvasCourseAssignments {
             String course = k.next();
             System.out.println(course);
             ArrayList<Event> che = Alist.get(course);
-            mn.add(new CanvasCalendar(course,che));
+//            mn.add(new CanvasCalendar(course,che)); //TODO: change to the appropriate initialization
 
         }
         System.out.println(mn.size());

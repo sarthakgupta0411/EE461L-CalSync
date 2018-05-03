@@ -1,26 +1,60 @@
 package software.design.teamorangecalsync;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-public class CanvasCalendar extends MainCalendar {
+public class CanvasCalendar extends FlexibleCalendar {
 
-    public CanvasCalendar(String canvasCalendar) {
-        super(canvasCalendar);
-    }
-    public CanvasCalendar(String canvasCalendar, ArrayList<Event> E) {
+    public static List<FlexibleCalendar> calendars;
 
-        super(canvasCalendar);
-        this.events = E;
-
+    public CanvasCalendar(String name) {
+        super(name);
     }
 
+    public static HashMap<String, List<Event>> fetchEvents() {
+        //TODO: Fix up
+//        AsyncTask<String,String,String> myTask = new AsyncTask<String,String,String>() {
+//
+//            @Override
+//            protected void onPreExecute() {
+//                super.onPreExecute();
+//
+//            }
+//
+//            @Override
+//            protected String doInBackground(String... strings) {
+//                System.out.println("here to get info");
+//                FetchCanvasCourseAssignments f = new FetchCanvasCourseAssignments();
+//                calendars = f.fetchCanvasAssignmentInfo();
+//
+//                System.out.print(calendars.size());
+//                return null;
+//            }
+//
+//        };// ... your AsyncTask code goes here
+//        System.out.println("here to get info");
+//        if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.HONEYCOMB)
+//            myTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//        else
+//            myTask.execute();
+//
+//        System.out.println("here to get info2");
+//        while(calendars.size() == 0){
+//
+//        }
+//
+//        return calendarListToMapOfNameAndEvents(calendars);
+        return null;
+    }
+
+//    private static HashMap<String, List<Event>> calendarListToMapOfNameAndEvents(List<FlexibleCalendar> list) {
+//        HashMap<String, List<Event>> map = new HashMap<>();
+//
+//        for(FlexibleCalendar cal : list) {
+//            String name = cal.getName();
+//            map.put(name, new LinkedList<Event>());
+//
+//        }
+//    }
 
 }

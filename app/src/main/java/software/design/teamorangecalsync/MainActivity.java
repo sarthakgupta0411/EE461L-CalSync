@@ -1,10 +1,12 @@
 package software.design.teamorangecalsync;
 
+import android.content.Intent;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CalendarView;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -17,53 +19,53 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ArrayList<MainCalendar> calendars = MainCalendar.getCalendars();
+        addCalendarsToScrollView();
+       // addEventsToCalendarView();
+    }
 
-        System.out.println("Got the calendars: " + calendars.size());
+
+    private void addCalendarsToScrollView() {
+
+        ArrayList<FlexibleCalendar> calendars = MainCalendar.getCalendars();
 
         // Find the Linear layout in the ScrollView
         LinearLayout sv = findViewById(R.id.linearLayout);
 
         // Add each calendar as a checkbox object to the linear layout
-        for(MainCalendar cal : calendars) {
-            CheckBox cb = new CheckBox(this);
-            // Add text
-            cb.setText(cal.name);
-            //set checked
-            cb.setChecked(true);
-            // Set color
-            cb.setTextColor(getResources().getColor(R.color.calsync_theme_foreground));
-            // Add to view
-            sv.addView(cb);
+        for(FlexibleCalendar cal : calendars) {
+            CheckBox checkBox = new CheckBox(this);
+
+            checkBox.setText(cal.getName());        // Add text
+            //checkBox.setId(cal.getId());            // Set id
+            //checkBox.setTextColor(cal.getColor());  // Set color
+            //checkBox.setChecked(cal.isVisible());    // Set checkbox checked
+
+            sv.addView(checkBox);                   // Add to scroll view
         }
+
     }
 
-    public void debuggingButton(View view) {
-        //prints the first day of the week
-        System.out.println(((CalendarView)findViewById(R.id.calendarView)).getFirstDayOfWeek());
-        //prints information about the calendar view
-        System.out.println(((CalendarView)findViewById(R.id.calendarView)).getMinDate());
-        System.out.println(((CalendarView)findViewById(R.id.calendarView)).getMaxDate());
-        System.out.println(((CalendarView)findViewById(R.id.calendarView)).getX());
-        System.out.println(((CalendarView)findViewById(R.id.calendarView)).getTop());
-        System.out.println(((CalendarView)findViewById(R.id.calendarView)).getWidth());
-        System.out.println(((CalendarView)findViewById(R.id.calendarView)).getHeight());
-        System.out.println(((CalendarView)findViewById(R.id.calendarView)).getChildCount());
-        System.out.println(((CalendarView)findViewById(R.id.calendarView)).getChildAt(0));
-        System.out.println(((CalendarView)findViewById(R.id.calendarView)).getChildAt(0).getClass());
+    public void gotoAddFlyerEvent(View view) {
+        Intent takePictureIntent = new Intent(this,AddFlyerEvent.class);
+        startActivity(takePictureIntent);
+    }
 
-        Date date = new Date(((CalendarView)findViewById(R.id.calendarView)).getDate());
-        System.out.println(date);
-        System.out.println(date.getDay());
-        System.out.println(date.getYear());
-        System.out.println(date.getMonth());
+    private void addEventsToCalendarView() {
+        //TODO: @Sierra implement this using the compact calendar view component from the git API
 
-
-
-
-        System.out.println(((CalendarView)findViewById(R.id.calendarView)).findFocus());
-        System.out.println(((CalendarView)findViewById(R.id.calendarView)).isDrawingCacheEnabled());
-
+        ArrayList<FlexibleCalendar> calendars = MainCalendar.getCalendars();
+        //The events are stored in a hashmap, where the key is the date of the event, and the value is an arraylist of all the events that day.
+        //To get reference to the events for a day ArrayList<Event> = calendar.getEvents().get(new Date(year, month, day));
+        //You can run through the arraylist like normal. Look through MainCalendar for more
+        /*  for every calendar in the calendars
+         *      check if the calendar is visible
+         *      for every day in the current month in the calendar view
+         *          check if any event in the calendar
+         *              say events added are 0 so far
+         *              while there are events and events added less than 3 (or 5, you pick how many circles you want)
+         *                  if event is not already there (check day with api)
+         *                      add the event to the calendar view using the api
+         */
     }
 
 }
