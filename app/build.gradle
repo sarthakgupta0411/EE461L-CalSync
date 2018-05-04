@@ -36,4 +36,10 @@ dependencies {
     //implementation files('libs/httpcore-4.2.4.jar')
     implementation files('libs/json-20170516.jar')
     implementation files('libs/org.apache.http.legacy.jar')
+
+    implementation 'joda-time:joda-time:2.9.4'
+    implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
+
+
+
 }

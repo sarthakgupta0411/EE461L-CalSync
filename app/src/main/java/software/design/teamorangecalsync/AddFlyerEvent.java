@@ -128,6 +128,48 @@ public class AddFlyerEvent extends AppCompatActivity {
 
     }
 
+    //this was something I made for Kunal
+    //public String testTime = "2018-05-07T13:30:00.000-05:00";
+
+    /*public Date[] gEventTimeParser(String[] s){
+        //this will take off the CST offest
+        for(String time : s){
+            time = time.substring(0,time.length()-6);
+        }
+        GregorianCalendar startDateCal = null;
+        GregorianCalendar endDateCal = null;
+
+        //these will set the year for both times
+        int startTimeYear = Integer.parseInt(s[0].substring(0,4));
+        int endTimeYear = Integer.parseInt(s[1].substring(0,4));
+
+        //these will get the month for both times
+        int startTimeMonth = Integer.parseInt(s[0].substring(5,7)) - 1;
+        int endTimeMonth = Integer.parseInt(s[1].substring(5,7)) - 1;
+
+        //these will get the day for both times
+        int startTimeDay = Integer.parseInt(s[0].substring(8,10));
+        int endTimeDay = Integer.parseInt(s[1].substring(8,10));
+
+        //these will get the hour of day for both times
+        int startTimeHour = Integer.parseInt(s[0].substring(11,13));
+        int endTimeHour = Integer.parseInt(s[1].substring(11,13));
+
+        //these will get the minute of day for both times
+        int startTimeMinute = Integer.parseInt(s[0].substring(14,16));
+        int endTimeMinute = Integer.parseInt(s[1].substring(14,16));
+
+        startDateCal = new GregorianCalendar(startTimeYear, startTimeMonth, startTimeDay, startTimeHour, startTimeMinute);
+        endDateCal = new GregorianCalendar(endTimeYear, endTimeMonth, endTimeDay, endTimeHour, endTimeMinute);
+
+        Date[] Duration = {null,null};
+        Duration[0] = startDateCal.getTime();
+        Duration[1] = endDateCal.getTime();
+
+        return Duration;
+
+    }*/
+
     public Event flyerParser(JSONObject j) throws JSONException {
         //Date sendDate = new Date();
         //Time sendTime = new Time();

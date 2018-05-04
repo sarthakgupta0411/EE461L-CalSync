@@ -49,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(takePictureIntent);
     }
 
+    public void gotoDayViewActivity(View view) {
+        Intent dayViewIntent = new Intent(this,DayViewActivity.class);
+        startActivity(dayViewIntent);
+    }
+
     private void addEventsToCalendarView() {
         //TODO: @Sierra implement this using the compact calendar view component from the git API
 
