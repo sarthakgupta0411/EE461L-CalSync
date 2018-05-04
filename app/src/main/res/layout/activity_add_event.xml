@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
         <LinearLayout
@@ -18,68 +20,106 @@
                         <Button
                             android:id="@+id/OkButton"
                             style="@android:style/Widget.DeviceDefault.Light.Button"
-                            android:onClick = "onClickOkButton"
-                            android:layout_width="100dp"
+                            android:layout_width="127dp"
                             android:layout_height="50dp"
-                            android:layout_marginTop="550dp"
-                            android:text="Ok"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginTop="8dp"
+                            android:onClick="onClickOkButton"
+                            android:text="Cancel"
                             android:textSize="18sp"
-                            app:layout_constraintStart_toStartOf="@+id/title"
-                            app:layout_constraintTop_toBottomOf="@+id/title"
-                            />
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/InputNotes"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="@+id/InputNotes"
+                            app:layout_constraintTop_toBottomOf="@+id/InputNotes"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <Button
+                            android:id="@+id/okButton"
+                            style="@android:style/Widget.DeviceDefault.Light.Button"
+                            android:layout_width="127dp"
+                            android:layout_height="50dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:onClick="onClickOkButton"
+                            android:text="Add Event"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/InputNotes"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/InputNotes"
+                            app:layout_constraintTop_toBottomOf="@+id/InputNotes" />
+
                         <EditText
                             android:id="@+id/InputNotes"
                             style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
                             android:layout_width="324dp"
-                            android:layout_height="45dp"
-                            android:layout_marginTop="490dp"
+                            android:layout_height="324dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginTop="12dp"
                             android:inputType="text"
                             android:singleLine="false"
-                            app:layout_constraintStart_toStartOf="@+id/title"
-                            app:layout_constraintTop_toBottomOf="@+id/title" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/ExtraNotes"
+                            app:layout_constraintTop_toBottomOf="@+id/ExtraNotes" />
+
                         <TextView
                             android:id="@+id/ExtraNotes"
                             android:layout_width="wrap_content"
                             android:layout_height="25dp"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginTop="450dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginTop="32dp"
                             android:text="ExtraNotes"
                             android:textSize="18sp"
-                            app:layout_constraintStart_toStartOf="@+id/title"
-                            app:layout_constraintTop_toBottomOf="@+id/title"
-                            tools:text="Location:" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/InputLocation"
+                            app:layout_constraintTop_toBottomOf="@+id/InputLocation"
+                            tools:text="ExtraNotes:" />
+
                         <EditText
                             android:id="@+id/InputLocation"
                             style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
                             android:layout_width="324dp"
                             android:layout_height="45dp"
-                            android:layout_marginTop="380dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginTop="16dp"
                             android:inputType="text"
                             android:singleLine="false"
-                            app:layout_constraintStart_toStartOf="@+id/title"
-                            app:layout_constraintTop_toBottomOf="@+id/title" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/Location"
+                            app:layout_constraintTop_toBottomOf="@+id/Location" />
+
                         <TextView
                             android:id="@+id/Location"
                             android:layout_width="wrap_content"
                             android:layout_height="25dp"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginTop="340dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginTop="32dp"
                             android:text="Location:"
                             android:textSize="18sp"
-                            app:layout_constraintStart_toStartOf="@+id/title"
-                            app:layout_constraintTop_toBottomOf="@+id/title"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/EndTime"
+                            app:layout_constraintTop_toBottomOf="@+id/DateInputEnd"
                             tools:text="Location:" />
 
                         <TextView
                             android:id="@+id/EndTime"
                             android:layout_width="wrap_content"
                             android:layout_height="25dp"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginTop="216dp"
+                            android:layout_marginTop="32dp"
                             android:text="End Time"
                             android:textSize="18sp"
-                            app:layout_constraintStart_toStartOf="@+id/title"
-                            app:layout_constraintTop_toBottomOf="@+id/title"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/DateInputStart"
+                            app:layout_constraintTop_toBottomOf="@+id/DateInputStart"
                             tools:text="End Time:" />
 
                         <EditText
@@ -87,38 +127,50 @@
                             style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
                             android:layout_width="62dp"
                             android:layout_height="42dp"
-                            android:layout_marginStart="260dp"
-                            android:layout_marginTop="268dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
                             android:hint="min"
                             android:inputType="text"
                             android:singleLine="false"
-                            app:layout_constraintStart_toStartOf="@+id/title"
-                            app:layout_constraintTop_toBottomOf="@+id/title" />
+                            app:layout_constraintBottom_toBottomOf="@+id/HourInputEnd"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/colon2"
+                            app:layout_constraintTop_toTopOf="@+id/HourInputEnd" />
 
                         <EditText
                             android:id="@+id/HourInputEnd"
                             style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
-                            android:layout_width="64dp"
-                            android:layout_height="42dp"
-                            android:layout_marginStart="144dp"
-                            android:layout_marginTop="264dp"
+                            android:layout_width="68dp"
+                            android:layout_height="38dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
                             android:hint="Hour"
                             android:inputType="text"
                             android:singleLine="false"
-                            app:layout_constraintStart_toStartOf="@+id/title"
-                            app:layout_constraintTop_toBottomOf="@+id/title" />
+                            app:layout_constraintBottom_toBottomOf="@+id/DateInputEnd"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.2"
+                            app:layout_constraintStart_toEndOf="@+id/DateInputEnd"
+                            app:layout_constraintTop_toTopOf="@+id/DateInputEnd" />
 
                         <TextView
                             android:id="@+id/colon2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="228dp"
-                            android:layout_marginTop="272dp"
+                            android:layout_width="9dp"
+                            android:layout_height="26dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
                             android:text=":"
                             android:textSize="24sp"
                             android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="@+id/title"
-                            app:layout_constraintTop_toBottomOf="@+id/title"
+                            app:layout_constraintBottom_toBottomOf="@+id/HourInputEnd"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/HourInputEnd"
+                            app:layout_constraintTop_toTopOf="@+id/HourInputEnd"
                             tools:text=":" />
 
                         <EditText
@@ -126,37 +178,48 @@
                             style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
                             android:layout_width="127dp"
                             android:layout_height="43dp"
-                            android:layout_marginTop="264dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginTop="16dp"
                             android:hint="mm/dd/yyyy"
                             android:inputType="text"
                             android:singleLine="false"
-                            app:layout_constraintStart_toStartOf="@+id/title"
-                            app:layout_constraintTop_toBottomOf="@+id/title" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/EndTime"
+                            app:layout_constraintTop_toBottomOf="@+id/EndTime" />
 
                         <EditText
                             android:id="@+id/MinuteInputStart"
                             style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
                             android:layout_width="62dp"
                             android:layout_height="42dp"
-                            android:layout_marginStart="256dp"
-                            android:layout_marginTop="128dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
                             android:hint="min"
                             android:inputType="text"
                             android:singleLine="false"
-                            app:layout_constraintStart_toStartOf="@+id/title"
-                            app:layout_constraintTop_toBottomOf="@+id/title" />
+                            app:layout_constraintBottom_toBottomOf="@+id/HourInputStart"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/colon"
+                            app:layout_constraintTop_toTopOf="@+id/HourInputStart" />
 
                         <TextView
                             android:id="@+id/colon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="228dp"
-                            android:layout_marginTop="136dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
                             android:text=":"
                             android:textSize="24sp"
                             android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="@+id/title"
-                            app:layout_constraintTop_toBottomOf="@+id/title"
+                            app:layout_constraintBottom_toBottomOf="@+id/HourInputStart"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/HourInputStart"
+                            app:layout_constraintTop_toTopOf="@+id/HourInputStart"
                             tools:text=":" />
 
                         <EditText
@@ -164,35 +227,44 @@
                             style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
                             android:layout_width="64dp"
                             android:layout_height="42dp"
-                            android:layout_marginStart="144dp"
-                            android:layout_marginTop="128dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
                             android:hint="Hour"
                             android:inputType="text"
                             android:singleLine="false"
-                            app:layout_constraintStart_toStartOf="@+id/title"
-                            app:layout_constraintTop_toBottomOf="@+id/title" />
+                            app:layout_constraintBottom_toBottomOf="@+id/DateInputStart"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.2"
+                            app:layout_constraintStart_toEndOf="@+id/DateInputStart"
+                            app:layout_constraintTop_toTopOf="@+id/DateInputStart" />
 
                         <EditText
                             android:id="@+id/DateInputStart"
                             style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
                             android:layout_width="127dp"
                             android:layout_height="43dp"
-                            android:layout_marginTop="128dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginTop="16dp"
                             android:hint="mm/dd/yyyy"
                             android:inputType="text"
                             android:singleLine="false"
-                            app:layout_constraintStart_toStartOf="@+id/title"
-                            app:layout_constraintTop_toBottomOf="@+id/title" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/StartTime"
+                            app:layout_constraintTop_toBottomOf="@+id/StartTime" />
 
                         <TextView
                             android:id="@+id/StartTime"
-                            android:layout_width="wrap_content"
+                            android:layout_width="87dp"
                             android:layout_height="25dp"
-                            android:layout_marginTop="84dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginTop="32dp"
                             android:text="Start Time:"
                             android:textSize="18sp"
-                            app:layout_constraintStart_toStartOf="@+id/title"
-                            app:layout_constraintTop_toBottomOf="@+id/title"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/TitleInput"
+                            app:layout_constraintTop_toBottomOf="@+id/TitleInput"
                             tools:text="Start Time:" />
 
                         <TextView
@@ -213,25 +285,31 @@
                         <TextView
                             android:id="@+id/addNewEvent"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="41dp"
+                            android:layout_marginBottom="8dp"
                             android:layout_marginEnd="8dp"
-                            android:layout_marginStart="8dp"
+                            android:layout_marginStart="24dp"
                             android:layout_marginTop="24dp"
                             android:text="Add New Event"
                             android:textSize="30sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.09"
+                            app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
 
                         <EditText
                             android:id="@+id/TitleInput"
                             style="@android:style/Widget.DeviceDefault.Light.AutoCompleteTextView"
                             android:layout_width="324dp"
                             android:layout_height="45dp"
+                            android:layout_marginEnd="8dp"
                             android:layout_marginTop="16dp"
                             android:inputType="text"
                             android:singleLine="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="@+id/title"
                             app:layout_constraintTop_toBottomOf="@+id/title" />
 
