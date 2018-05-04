@@ -2,13 +2,13 @@
 
 require "calendar_database_init.php";
 
-$user_name = "Nikhil";
-$calendar_name = "canvascal1";
-$assignment = "ee461l final project";
-$duedate = "05/04/18";
-$duetime = "11:59:00";
-$description = "final project";
-$apitoken = "89asdf89723";
+$user_name = $_POST["user_name"];
+$calendar_name = $_POST["calendar_name"];
+$assignment = $_POST["assignment"];
+$duedate = $_POST["duedate"];
+$duetime = $_POST["duetime"];
+$description = $_POST["description"];
+$apitoken = $_POST["apitoken"];
 
 $sql_query = "insert into canvasevent (username,calendarname,assignment,duedate,duetime,description,apitoken) values ('$user_name','$calendar_name','$assignment','$duedate','$duetime','$description','$apitoken');";
 
