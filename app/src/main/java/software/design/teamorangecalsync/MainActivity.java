@@ -17,23 +17,35 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Scheduler scheduler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //checks for user sign in
+        checkUserSignIn();
 
+        scheduler = Scheduler.getInstance();
+        passCalendarReferenceToScheduler();
         addCalendarsToScrollView();
         addEventsToCalendarView();
+
+        addActionBarReference();
+        addCalendarViewListeners();
     }
 
 
+    private void checkUserSignIn() {
+        //TODO: check for user credentials and link to welcome activity if
+    }
     private void addCalendarsToScrollView() {
 
         List<FlexibleCalendar> calendars = MainCalendar.getCalendars();
 
         // Find the Linear layout in the ScrollView
-        LinearLayout sv = findViewById(R.id.linearLayout);
+        LinearLayout sv = findViewById(R.id.linearLayout_main);
 
         // Add each calendar as a checkbox object to the linear layout
         for(FlexibleCalendar cal : calendars) {
@@ -48,14 +60,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-    public void gotoAddFlyerEvent(View view) {
-        Intent takePictureIntent = new Intent(this,AddFlyerEvent.class);
-        startActivity(takePictureIntent);
-    }
-
     private void addEventsToCalendarView() {
-        //TODO: @Sierra implement this using the compact calendar view component from the git API
+        //TODO: @implement this using the compact calendar view component from the git API
 
         List<FlexibleCalendar> calendars = MainCalendar.getCalendars();
         //The events are stored in a hashmap, where the key is the date of the event, and the value is an arraylist of all the events that day.
@@ -70,6 +76,34 @@ public class MainActivity extends AppCompatActivity {
          *                  if event is not already there (check day with api)
          *                      add the event to the calendar view using the api
          */
+    }
+
+    private void passCalendarReferenceToScheduler() {
+        scheduler.setCalendarReference((CompactCalendarView)findViewById(R.id.compactcalendar_view));
+    }
+
+    private void addActionBarReference() {
+        //TODO:
+    }
+
+    private void addCalendarViewListeners() {
+        //TODO: under the dayclick linstener, add the dayview activity
+    }
+
+
+    //Button onclick calls
+    public void gotoAddEvent(View view) {
+        gotoActivity(AddEvent.class);
+    }
+    public void gotoAddFlyerEvent(View view) {
+        gotoActivity(AddFlyerEvent.class);
+    }
+    public void gotoEditCalendars(View view) {
+        gotoActivity(EditCalendars.class);
+    }
+    private void gotoActivity(Class activity) {
+        Intent activityIntent = new Intent(this, activity);
+        startActivity(activityIntent);
     }
 
 }

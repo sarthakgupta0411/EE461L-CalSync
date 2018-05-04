@@ -1,15 +1,19 @@
 package software.design.teamorangecalsync;
 
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+
 //Handles front end scheduling for new events
 public class Scheduler {
 
     private static final Scheduler ourInstance = new Scheduler();
 
-    public static Scheduler getInstance() {
-        return ourInstance;
-    }
+    private CompactCalendarView calendarView;
 
     private Scheduler() {
+    }
+
+    public static Scheduler getInstance() {
+        return ourInstance;
     }
 
     /**
@@ -43,6 +47,10 @@ public class Scheduler {
         //front end
         //TODO: add front end changes to edi the event in the calendar view
 
+    }
+
+    public void setCalendarReference(CompactCalendarView ccv) {
+        calendarView = ccv;
     }
 
 }
