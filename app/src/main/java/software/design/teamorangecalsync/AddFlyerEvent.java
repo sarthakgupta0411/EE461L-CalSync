@@ -18,8 +18,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.client.utils.URIBuilder;
+
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
@@ -73,14 +72,8 @@ public class AddFlyerEvent extends AppCompatActivity {
                     // NOTE: You must use the same location in your REST call as you used to obtain your subscription keys.
                     //   For example, if you obtained your subscription keys from westus, replace "westcentralus" in the
                     //   URL below with "westus".
-                    URIBuilder uriBuilder = new URIBuilder(uriBase);
 
-                    uriBuilder.setParameter("language", "unk");
-                    uriBuilder.setParameter("detectOrientation ", "true");
-
-                    // Request parameters.
-                    URI uri = uriBuilder.build();
-                    HttpPost request = new HttpPost(uri);
+                    HttpPost request = new HttpPost(uriBase);
 
                     // Request headers.
                     request.setHeader("Content-Type", "application/octet-stream");
