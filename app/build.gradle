@@ -36,4 +36,5 @@ dependencies {
     //implementation files('libs/httpcore-4.2.4.jar')
     implementation files('libs/json-20170516.jar')
     implementation files('libs/org.apache.http.legacy.jar')
+    implementation 'com.github.sundeepk:compact-calendar-view:2.0.2.3'
 }

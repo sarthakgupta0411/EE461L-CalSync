@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="calsync_theme_primary">#FF5922</color>
+    <color name="calsync_theme_primary">#ff5922</color>
     <color name="calsync_theme_primary_dark">#d53500</color>
     <color name="calsync_theme_background">#ebebeb</color>
     <color name="calsync_theme_accent">#ff3f00</color>

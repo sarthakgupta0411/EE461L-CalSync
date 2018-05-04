@@ -9,6 +9,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,8 +22,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         addCalendarsToScrollView();
-       // addEventsToCalendarView();
+        addEventsToCalendarView();
     }
 
 
