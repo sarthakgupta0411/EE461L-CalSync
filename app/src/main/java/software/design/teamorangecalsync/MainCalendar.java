@@ -14,7 +14,7 @@ public class MainCalendar {
     //Private MainCalendar class fields
     private static List<FlexibleCalendar> calendars;  //Holds all the calendars in the project
 
-    private final static boolean frontEndDebugging = true;
+    private final static boolean frontEndDebugging = false;
 
     //Public class methods
     public static List<FlexibleCalendar> getCalendars() {
@@ -43,22 +43,25 @@ public class MainCalendar {
 
     //Private class helper methods
     private static void fetchCalendars() {
-        if (calendars == null) {
-            synchronized (MainCalendar.class) {   //thread safe synchronization
-                if (calendars == null) {
+        System.out.println("fetchCalendars");
+        //if (calendars == null) {
+            //synchronized (MainCalendar.class) {   //thread safe synchronization
+               // if (calendars == null) {
                     calendars = fetchCalendarsFromAllSources();
-                }
-            }
-        }
+                //}
+            //}
+        //}
     }
     private static List<FlexibleCalendar> fetchCalendarsFromAllSources() {
+        System.out.println("fetchCalendarsFromAllSources");
         //compiles the calendars and
         List<FlexibleCalendar> calendars = new LinkedList<>();
         //HashMap<Date, List<Event>> allEvents = new HashMap<>();
 
-        calendars.addAll(organizeEventsIntoCalendars(Database.fetchEventsFromDatabase(), "CalSyncCalendar"));
-        //calendars.addAll(organizeEventsIntoCalendars(CanvasCalendar.fetchEvents(), "CanvasCalendar")); //TODO: uncommnet when fixed
-        calendars.addAll(organizeEventsIntoCalendars(GoogleCalendar.fetchEvents(), "GoogleCalendar"));
+        //TODO: uncomment each of these as we add them in full
+        //calendars.addAll(organizeEventsIntoCalendars(Database.fetchEventsFromDatabase(), "software.design.teamorangecalsync.CalSyncCalendar"));
+        //calendars.addAll(organizeEventsIntoCalendars(CanvasCalendar.fetchEvents(), "software.design.teamorangecalsync.CanvasCalendar"));
+        //calendars.addAll(organizeEventsIntoCalendars(GoogleCalendar.fetchEvents(), "software.design.teamorangecalsync.GoogleCalendar"));
 
         //addUniqueEventsToMap(allEvents, Database.fetchEventsFromDatabase());
         //calendars.add( organizeEventsIntoCalendars( mapToListOfEvents(allEvents), "CalSyncCalendar");
@@ -92,6 +95,7 @@ public class MainCalendar {
         if(eventsToOrganize == null) {
             return null;
         }
+
         ArrayList<FlexibleCalendar> calendarList = new ArrayList<>();
         ArrayList<String> calendarsAdded = new ArrayList<>();
 
@@ -105,6 +109,7 @@ public class MainCalendar {
                 }
                 catch(Exception exception) {
                     //should not happen
+                    exception.printStackTrace();
                 }
             }
             calendarList.get(calendarsAdded.indexOf(calendarOfOrigin)).addEvent(event);

@@ -17,7 +17,9 @@ import java.util.concurrent.Executors;
 
 public class FetchCanvasCourseAssignments {
 
-    public  ArrayList<FlexibleCalendar> fetchCanvasAssignmentInfo(){
+    public  ArrayList<Event> fetchCanvasAssignmentInfo(){
+        System.out.println("fetchCanvasAssignmentInfo");
+        ArrayList<Event> che = new ArrayList<>();
         //System.out.println("here to get info111");
         ArrayList<FlexibleCalendar> mn = new ArrayList<>();     //TODO: I changed it to flexible calendar, make sure everything with it makes sense
         Map<String, ArrayList<Event>> Alist= new HashMap<String, ArrayList<Event>>();
@@ -48,27 +50,27 @@ public class FetchCanvasCourseAssignments {
             for(int i = 1; i < 4; i ++){
 
 
-                GetAssignments t = (new GetAssignments(Integer.toString(i), courseid, Access_Token, hws));
+                GetAssignments t = (new GetAssignments(Integer.toString(i), courseid, Access_Token, hws, course));
                 pool2.execute(t);
             }
             pool2.shutdown();
             while(!pool2.isTerminated()){
 
             }
-            assignments.addAll(hws);
+            che.addAll(hws);
 
-            Alist.put(course, assignments );
+           // Alist.put(course, assignments );
         }
 
-        Iterator<String> k = Alist.keySet().iterator();
-        while(k.hasNext()){
-            String course = k.next();
-            System.out.println(course);
-            ArrayList<Event> che = Alist.get(course);
-//            mn.add(new CanvasCalendar(course,che)); //TODO: change to the appropriate initialization
-
-        }
-        System.out.println(mn.size());
-        return mn;
+//        Iterator<String> k = Alist.keySet().iterator();
+//        while(k.hasNext()){
+//            String course = k.next();
+//            System.out.println(course);
+//            che = Alist.get(course);
+////            mn.add(new CanvasCalendar(course,che)); //TODO: change to the appropriate initialization
+//
+//        }
+        //System.out.println(che.toString());
+        return che;
     }
 }

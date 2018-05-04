@@ -12,13 +12,13 @@ public class CalSyncCalendar extends FlexibleCalendar {
 
     @Override
     public void addEvent(Date date, Event event) {
-        addEvent(date, event);
+        super.addEvent(date, event);
+        Database.addEvent(event);
     }
     @Override
     public void addEvent(Event event) {
         //lazy add event function
-        super.addEvent(event.getStartDate(), event);
-        Database.addEvent(event);
+        addEvent(event.getStartDate(), event);
     }
     @Override
     public void deleteEvent(Event event) {

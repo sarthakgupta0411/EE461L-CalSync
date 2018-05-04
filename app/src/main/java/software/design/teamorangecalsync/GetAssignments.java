@@ -20,6 +20,7 @@ public class GetAssignments implements Runnable {
 	String Access_Token;
 	String page;
 	String response;
+	String course;
 	CopyOnWriteArrayList<Event> content;
 	
 	
@@ -27,11 +28,12 @@ public class GetAssignments implements Runnable {
 		this.courseId = courseId;
 		this.Access_Token = "1017~iPDnl3GFOa88Pf7cklx9pJ5Sre7ua4mA6DifYmIBn9fvdmYlqvKtJrLxxQ1MkKSt";
 	}
-	public GetAssignments(String page, String CourseId, String token,CopyOnWriteArrayList<Event> content ){
+	public GetAssignments(String page, String CourseId, String token,CopyOnWriteArrayList<Event> content, String course ){
 		this.courseId = CourseId;
 		this.Access_Token = token;
 		this.content = content;
 		this.page = page;
+		this.course = course;
 	}
 	
 	@Override
@@ -92,7 +94,7 @@ public class GetAssignments implements Runnable {
 	        		 String[] s = due.split("-|T|\\:|Z");
 	        	    	Calendar c = new GregorianCalendar(Integer.parseInt(s[0]),Integer.parseInt(s[1])-1,Integer.parseInt(s[2]),Integer.parseInt(s[3]),Integer.parseInt(s[4]),Integer.parseInt(s[5]));
 	        	        c.add(Calendar.HOUR, -6);
-	        	        //content.add(new Assignment(name,c,des));	//TODO: fix
+	        	        content.add(new Assignment(name,c.getTime(),des,this.course));	//TODO: fix
 	        	}
 	        	 }
 	         }
