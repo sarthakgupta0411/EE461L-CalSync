@@ -22,13 +22,19 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class AddFlyerEvent extends AppCompatActivity {
 
@@ -97,6 +103,7 @@ public class AddFlyerEvent extends AppCompatActivity {
                         // Format and display the JSON response.
                         String jsonString = EntityUtils.toString(entity);
                         JSONObject json = new JSONObject(jsonString);
+                        flyerParser(json);
                         System.out.println("REST Response:\n");
                         System.out.println(json.toString(2));
                     }
@@ -121,6 +128,93 @@ public class AddFlyerEvent extends AppCompatActivity {
 
     }
 
+    public Event flyerParser(JSONObject j) throws JSONException {
+        //Date sendDate = new Date();
+        //Time sendTime = new Time();
+        GregorianCalendar sendDate = null;
+        JSONArray ja = j.optJSONArray("regions");
+        ArrayList<String> allWords = new ArrayList<>();
+        //Event e = new Event();
+        int biggestWordHeight = 0;
+        for(int i = 0; i < ja.length(); i++){
+            JSONObject region = ja.getJSONObject(i);
+
+            JSONArray lines = region.optJSONArray("lines");
+            for(int k = 0; k < lines.length(); k++){
+                JSONObject box = lines.getJSONObject(k);
+                JSONArray words = box.getJSONArray("words");
+                String[] wordDims = words.getJSONObject(0).getString("boundingBox").split(",");
+                ArrayList<String> wordList = new ArrayList();
+                int wordHeight = Integer.parseInt(wordDims[3]);
+                if(wordHeight > biggestWordHeight){
+                    biggestWordHeight = wordHeight;
+                    if(!allWords.isEmpty()){
+                        allWords.clear();
+                    }
+                    for(int p = 0; p < words.length(); p++){
+                        allWords.add(words.getJSONObject(p).getString("text"));
+
+                    }
+                }else{
+                    for (int s = 0; s < words.length(); s++){
+                        wordList.add(words.getJSONObject(s).getString("text"));
+                    }
+                    for(int w = 0; w < wordList.size(); w++){
+                        String word = wordList.get(w);
+                        if(isMonth(word)){
+                            sendDate = new GregorianCalendar(2018,whatMonth(word) ,Integer.parseInt(wordList.get(w+1).substring(0,wordList.get(w+1).length()-2)));
+                            System.out.println(sendDate);
+                            break;
+                        }
+                    }
+
+                    if(sendDate != null) {
+                        break;
+                    }
+
+
+                    /*String text = "";
+                    for (int c = 0; c < wordList.size(); c++){
+                        text += wordList.get(c) + " ";
+                    }*/
+
+                    int test = 0;
+
+                }
+
+            }
+
+        }
+        String title = "";
+        for (int i = 0; i < allWords.size(); i++){
+            title += allWords.get(i) + " ";
+        }
+        Date startTime = sendDate.getTime();
+
+
+        return new Event(title, startTime, null, null, "flyer_calendar");
+
+
+
+
+    }
+
+    public boolean isMonth(String m){
+        m = m.toLowerCase();
+        if ((m.equals("january")) || (m.equals("february")) || (m.equals("march")) || (m.equals("april")) || (m.equals("may")) || (m.equals("june")) || (m.equals("july")) || (m.equals("august")) || (m.equals("september")) || (m.equals("october")) || (m.equals("november")) || (m.equals("december"))){
+            return true;
+        }
+        return false;
+    }
+
+    public int whatMonth(String m){
+        String[] monthsArray = {"january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"};
+        ArrayList<String> months = new ArrayList<>();
+        for(String month : monthsArray) {
+            months.add(month);
+        }
+        return months.indexOf(m.toLowerCase());
+    }
     static final int REQUEST_TAKE_PHOTO = 1;
     File photoFile = null;
     public void dispatchTakePictureIntent() {

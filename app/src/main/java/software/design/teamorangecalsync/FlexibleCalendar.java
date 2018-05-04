@@ -22,7 +22,7 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
         if(name == null || name.replaceAll(" ", "").length() == 0) {
             name = "Unnamed";
         }
-        buildUniqueName(name);
+        //buildUniqueName(name);
     }
 
     public void addEvent(Date date, Event event) {
