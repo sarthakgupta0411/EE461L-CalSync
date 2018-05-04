@@ -33,6 +33,7 @@ public class Event {
         startTime = _startTime;
         endTime = _endTime;
         calendarOfOrigin = _calendarOfOrigin;
+        setStartDate(startTime);
     }
 
     //getters
@@ -64,10 +65,11 @@ public class Event {
     }
     public void setStartTime(Date newStart) {
         startTime = newStart;
+        setStartDate(startTime);
     }
     public void setEndTime(Date newEnd) {
         endTime = newEnd;
-    }
+    } //TODO: make sure that end time stays ahead of start time
     public void setLocation(String newLocation) {
         location = newLocation;
     }

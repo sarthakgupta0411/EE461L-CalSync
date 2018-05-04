@@ -1,5 +1,6 @@
 package software.design.teamorangecalsync;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -11,13 +12,12 @@ import java.util.List;
 public class MainCalendar {
 
     //Private MainCalendar class fields
-    private static ArrayList<FlexibleCalendar> calendars;  //Holds all the calendars in the project
-    private static HashMap<String, Class> calendarNames;  //keeps track of the type of calendar by calendar name
+    private static List<FlexibleCalendar> calendars;  //Holds all the calendars in the project
 
     private final static boolean frontEndDebugging = true;
 
     //Public class methods
-    public static ArrayList<FlexibleCalendar> getCalendars() {
+    public static List<FlexibleCalendar> getCalendars() {
         //TODO: remove debugging lines
         if(frontEndDebugging) {
             setupTestCalendarList();
@@ -38,11 +38,6 @@ public class MainCalendar {
         }
         return null;    //returns null if not found
     }
-    public static void mapCalendarToClass(String name, Class calendar) {
-        if(!calendarNames.containsKey(name)) {
-            calendarNames.put(name, calendar);
-        }
-    }
 
 
 
@@ -51,26 +46,31 @@ public class MainCalendar {
         if (calendars == null) {
             synchronized (MainCalendar.class) {   //thread safe synchronization
                 if (calendars == null) {
-                    calendars = new ArrayList<>();
-                    calendars.addAll(fetchCalendarsFromAllSources());
+                    calendars = fetchCalendarsFromAllSources();
                 }
             }
         }
     }
     private static List<FlexibleCalendar> fetchCalendarsFromAllSources() {
         //compiles the calendars and
-        return organizeEventsIntoCalendars(fetchUniqueEventsFromAllSources());
-    }
-    private static List<Event> fetchUniqueEventsFromAllSources() {
-        HashMap<Date, List<Event>> allEvents = new HashMap<>();
+        List<FlexibleCalendar> calendars = new LinkedList<>();
+        //HashMap<Date, List<Event>> allEvents = new HashMap<>();
 
-        addUniqueEventsToMap(allEvents, Database.fetchEventsFromDatabase());
-        addUniqueEventsToMap(allEvents, mapToListOfEvents(CanvasCalendar.fetchEvents()));
-        addUniqueEventsToMap(allEvents, GoogleCalendar.fetchEvents());
+        calendars.addAll(organizeEventsIntoCalendars(Database.fetchEventsFromDatabase(), "CalSyncCalendar"));
+        //calendars.addAll(organizeEventsIntoCalendars(CanvasCalendar.fetchEvents(), "CanvasCalendar")); //TODO: uncommnet when fixed
+        calendars.addAll(organizeEventsIntoCalendars(GoogleCalendar.fetchEvents(), "GoogleCalendar"));
 
-        return mapToListOfEvents(allEvents);
+        //addUniqueEventsToMap(allEvents, Database.fetchEventsFromDatabase());
+        //calendars.add( organizeEventsIntoCalendars( mapToListOfEvents(allEvents), "CalSyncCalendar");
+        //addUniqueEventsToMap(allEvents, mapToListOfEvents(CanvasCalendar.fetchEvents()));
+        //addUniqueEventsToMap(allEvents, GoogleCalendar.fetchEvents());
+
+        return calendars;
     }
     private static void addUniqueEventsToMap(HashMap<Date, List<Event>> events, List<Event> list) {
+        if(list == null) {
+            return;
+        }
         for(Event event : list) {
             if(!events.containsKey(event.getStartDate())) {
                 events.put(event.getStartDate(), new LinkedList<Event>());
@@ -88,21 +88,26 @@ public class MainCalendar {
             }
         }
     }
-    private static List<FlexibleCalendar> organizeEventsIntoCalendars(List<Event> eventsToOrganize) {
+    private static List<FlexibleCalendar> organizeEventsIntoCalendars(List<Event> eventsToOrganize, String subclass) {
         if(eventsToOrganize == null) {
             return null;
         }
-        List<FlexibleCalendar> calendarList = new LinkedList<>();
+        ArrayList<FlexibleCalendar> calendarList = new ArrayList<>();
+        ArrayList<String> calendarsAdded = new ArrayList<>();
 
-        //calendarNames.put("somecalendar", Canvas);
-
-        //TODO: Get the event. Assuming the event contains the name of the calendar of origin,
+        //Get the events. Assuming the event contains the name of the calendar of origin,
         for(Event event : eventsToOrganize) {
-            //TODO:   get the name of the name of the calendar and search in the knownCalendars for the
-            //TODO:   class associated with that calendar. Use this class to get instances of the
-            //TODO:   calendars using reflection
             String calendarOfOrigin = event.getCalendarOfOrigin();
-            //Class
+            if(!calendarsAdded.contains(calendarOfOrigin)) {
+                calendarsAdded.add(calendarOfOrigin);
+                try {
+                    calendarList.add((FlexibleCalendar)(Class.forName(subclass).getConstructor(String.class).newInstance(calendarOfOrigin)));
+                }
+                catch(Exception exception) {
+                    //should not happen
+                }
+            }
+            calendarList.get(calendarsAdded.indexOf(calendarOfOrigin)).addEvent(event);
         }
 
         return calendarList;
@@ -118,16 +123,6 @@ public class MainCalendar {
         }
         return list;
     }
-
-    //TODO: add methods to add all the events from google and canvas calendar by using the scheduler
-    //TODO: implement where assignments extend events, and this is returned
-    //TODO: this may not be the best implementation. We could use the ones at the end of the file
-    private static List<Event> fetchEventsFromCanvas() {
-        return null;
-    }
-
-    //TODO: For whoever adds the the google calendars api
-    private static List<Event> fetchEventsFromGoogle() { return null; }
 
     //Makes test calendar list for implementing the front end stuff
     private static void setupTestCalendarList() {

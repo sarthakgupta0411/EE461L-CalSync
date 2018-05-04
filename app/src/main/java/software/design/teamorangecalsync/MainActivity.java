@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void addCalendarsToScrollView() {
 
-        ArrayList<FlexibleCalendar> calendars = MainCalendar.getCalendars();
+        List<FlexibleCalendar> calendars = MainCalendar.getCalendars();
 
         // Find the Linear layout in the ScrollView
         LinearLayout sv = findViewById(R.id.linearLayout);
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private void addEventsToCalendarView() {
         //TODO: @Sierra implement this using the compact calendar view component from the git API
 
-        ArrayList<FlexibleCalendar> calendars = MainCalendar.getCalendars();
+        List<FlexibleCalendar> calendars = MainCalendar.getCalendars();
         //The events are stored in a hashmap, where the key is the date of the event, and the value is an arraylist of all the events that day.
         //To get reference to the events for a day ArrayList<Event> = calendar.getEvents().get(new Date(year, month, day));
         //You can run through the arraylist like normal. Look through MainCalendar for more
