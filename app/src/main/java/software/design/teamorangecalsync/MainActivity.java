@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -25,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
     private ActionBar actionBar;
     private CompactCalendarView compactCalendarView;
     private Scheduler scheduler;
+
+    protected final static String[] MONTH_NAMES =
+            {"January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
     private void addActionBarReference() {
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(null);
-
+        actionBar.setTitle(MONTH_NAMES[Calendar.getInstance().get(Calendar.MONTH)]
+                + " " + Calendar.getInstance().get(Calendar.YEAR));
     }
 
     private void addCalendarViewListeners() {
@@ -105,14 +110,8 @@ public class MainActivity extends AppCompatActivity {
                         + " " + currentYear(firstDayOfNewMonth));
             }
 
-            private final String[] MONTH_NAMES =
-                    {"January", "February", "March", "April", "May", "June",
-                    "July", "August", "September", "October", "November", "December"};
-
             private int currentYear(Date deprecated) {
-                return 2018;
-                //Date deprecatedFix2018 = new Date(2018, 0, 0);
-                //return 2018 + deprecated.getYear() - deprecatedFix2018.getYear();
+                return 1900 + deprecated.getYear();
             }
 
         });

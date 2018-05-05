@@ -1,5 +1,6 @@
 package software.design.teamorangecalsync;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -25,10 +26,13 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
         //buildUniqueName(name);
     }
 
-    public void addEvent(Date date, Event event) {
+    private void addEvent(Date date, Event event) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
+        String dateKey = sdf.format(date.getTime());
         if (!events.containsKey(date)) {
             events.put(date, new ArrayList<Event>());
         }
+        System.out.println(events);
         events.get(date).add(event);
         Scheduler.getInstance().addEvent(event);
     }

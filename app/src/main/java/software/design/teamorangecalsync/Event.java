@@ -2,6 +2,7 @@ package software.design.teamorangecalsync;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 public class Event {
@@ -80,8 +81,7 @@ public class Event {
         calendarOfOrigin = newCalendar;
     }
     private void setStartDate(Date startTime) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(startTime.getYear(), startTime.getMonth(), startTime.getDay());
+        Calendar cal = new GregorianCalendar(1900 + startTime.getYear(), startTime.getMonth(), startTime.getDay());
         startDate = cal.getTime();
     }
 

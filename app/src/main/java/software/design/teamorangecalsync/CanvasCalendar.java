@@ -11,14 +11,14 @@ import java.util.List;
 
 public class CanvasCalendar extends FlexibleCalendar {
 
-    public static List<Event> calendars = new ArrayList<>();
+    public static List<Event> events = new ArrayList<>();
 
     public CanvasCalendar(String name) {
         super(name);
     }
 
     public static List<Event> fetchEvents() {
-        System.out.println("fetchEvents");
+        //System.out.println("fetchEvents");
         AsyncTask<String,String,String> myTask = new AsyncTask<String,String,String>() {
 
             @Override
@@ -29,27 +29,27 @@ public class CanvasCalendar extends FlexibleCalendar {
 
             @Override
             protected String doInBackground(String... strings) {
-                System.out.println("here to get info");
+                //System.out.println("here to get info");
                 FetchCanvasCourseAssignments f = new FetchCanvasCourseAssignments();
-                calendars = f.fetchCanvasAssignmentInfo();
+                events = f.fetchCanvasAssignmentInfo();
 
-                System.out.print(calendars.size());
+                System.out.print(events);
                 return null;
             }
 
         };// ... your AsyncTask code goes here
-        System.out.println("here to get info");
+        //System.out.println("here to get info");
         if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.HONEYCOMB)
             myTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         else
             myTask.execute();
 
-        System.out.println("here to get info2");
-        while(calendars.size() == 0){
+        //System.out.println("here to get info2");
+        while(events.size() == 0){
         }
 
         //return mapToListOfEvents(calendars);
-        return calendars;
+        return events;
     }
 
 //    private static List<Event> mapToListOfEvents(HashMap<String, List<Event>> map) {

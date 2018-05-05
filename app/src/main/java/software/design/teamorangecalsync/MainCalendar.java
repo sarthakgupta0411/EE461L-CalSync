@@ -24,7 +24,6 @@ public class MainCalendar {
         }
         else {
             if (calendars == null) {
-                calendars = new ArrayList<>();
                 fetchCalendars();   //add calendars to the arraylist
             }
         }
@@ -41,7 +40,15 @@ public class MainCalendar {
     public static List<Event> getEventsFor(Date day) {
         List<Event> eventsForDay = new LinkedList<>();
         for(FlexibleCalendar cal : calendars) {
-            eventsForDay.addAll(cal.getEvents().get(day));
+            try {
+                System.out.println("Event: ");
+                System.out.println(cal.getEvents());
+                eventsForDay.addAll(cal.getEvents().get(day));
+            }
+            catch(NullPointerException calendarDoesntHaveEvents) {
+                System.out.println(day);
+                //nothing
+            }
         }
 
         return eventsForDay;
