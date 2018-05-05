@@ -12,8 +12,10 @@ import android.widget.TextView;
 //import com.inducesmile.androidcalendardailyview.databases.DatabaseQuery;
 //import com.inducesmile.androidcalendardailyview.databases.EventObjects;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 public class DayViewActivity extends AppCompatActivity {
@@ -68,23 +70,37 @@ public class DayViewActivity extends AppCompatActivity {
     }
     private void displayDailyEvents(){
         Date calendarDate = cal.getTime();
-        /*List<EventObjects> dailyEvent = mQuery.getAllFutureEvents(calendarDate);
-        for(EventObjects eObject : dailyEvent){
-            Date eventDate = eObject.getDate();
-            Date endDate = eObject.getEnd();
-            String eventMessage = eObject.getMessage();
+        ArrayList<Event> dailyEvent = new ArrayList<>();
+
+        //this is for testing
+        Event e1 = new Event("Go to Logan and beg for Mercy", giveDate(2018,4,4,8,30),giveDate(2018,4,4,12,0), "RLM", "I need sleep", "test");
+        Event e2 = new Event("get an A on this hoe", giveDate(2018,4,4,22,30),giveDate(2018,4,4,24,0), "RLM", "I need sleep", "test");
+        dailyEvent.add(e1);
+        dailyEvent.add(e2);
+        for(Event eObject : dailyEvent){
+            Date eventDate = eObject.getStartTime();
+            Date endDate = eObject.getEndTime();
+            String eventMessage = eObject.getTitle();
+            System.out.println(eventDate.toString());
             int eventBlockHeight = getEventTimeFrame(eventDate, endDate);
             Log.d(TAG, "Height " + eventBlockHeight);
             displayEventSection(eventDate, eventBlockHeight, eventMessage);
-        }*/
+        }
+    }
+    public Date giveDate(int year,int month,int day,int hr, int min){
+        GregorianCalendar gc = new GregorianCalendar(year,month,day,hr,min);
+        Date sendDate = gc.getTime();
+        return sendDate;
     }
     private int getEventTimeFrame(Date start, Date end){
         long timeDifference = end.getTime() - start.getTime();
         Calendar mCal = Calendar.getInstance();
         mCal.setTimeInMillis(timeDifference);
-        int hours = mCal.get(Calendar.HOUR);
-        int minutes = mCal.get(Calendar.MINUTE);
-        return (hours * 60) + ((minutes * 60) / 100);
+        int hours = (int)timeDifference/3600000;//mCal.get(Calendar.HOUR);
+        timeDifference -= hours*3600000;
+        int minutes = (int)timeDifference/60000;//mCal.get(Calendar.MINUTE);
+        int factor = (hours*60) + minutes;
+        return (factor*3)/4;
     }
     private void displayEventSection(Date eventDate, int height, String message){
         SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
@@ -92,9 +108,10 @@ public class DayViewActivity extends AppCompatActivity {
         String[]hourMinutes = displayValue.split(":");
         int hours = Integer.parseInt(hourMinutes[0]);
         int minutes = Integer.parseInt(hourMinutes[1]);
+        int factor = (hours*60) + minutes;
         Log.d(TAG, "Hour value " + hours);
         Log.d(TAG, "Minutes value " + minutes);
-        int topViewMargin = (hours * 60) + ((minutes * 60) / 100);
+        int topViewMargin = (factor*3)/4;
         Log.d(TAG, "Margin top " + topViewMargin);
         createEventView(topViewMargin, height, message);
     }

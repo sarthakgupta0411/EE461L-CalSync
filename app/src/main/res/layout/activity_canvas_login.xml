@@ -6,4 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".CanvasLogin">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="298dp"
+        android:layout_height="88dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="88dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/Canvas_Logo" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="273dp"
+        android:layout_height="43dp"
+        android:ems="10"
+        android:hint="Enter access token..."
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="56dp"
+        tools:layout_editor_absoluteY="280dp" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="174dp"
+        android:layout_height="49dp"
+        android:text="Go!"
+        tools:layout_editor_absoluteX="105dp"
+        tools:layout_editor_absoluteY="369dp" />
 </android.support.constraint.ConstraintLayout>
