@@ -117,6 +117,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
+        android:onClick="gotoAddFlyerEvent"
         app:elevation="3dp"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"

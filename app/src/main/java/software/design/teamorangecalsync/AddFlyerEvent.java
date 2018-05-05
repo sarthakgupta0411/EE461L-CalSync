@@ -21,13 +21,19 @@ import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class AddFlyerEvent extends AppCompatActivity {
 
@@ -72,6 +78,7 @@ public class AddFlyerEvent extends AppCompatActivity {
                     // NOTE: You must use the same location in your REST call as you used to obtain your subscription keys.
                     //   For example, if you obtained your subscription keys from westus, replace "westcentralus" in the
                     //   URL below with "westus".
+
                     HttpPost request = new HttpPost(uriBase);
 
                     // Request headers.
@@ -89,8 +96,10 @@ public class AddFlyerEvent extends AppCompatActivity {
                         // Format and display the JSON response.
                         String jsonString = EntityUtils.toString(entity);
                         JSONObject json = new JSONObject(jsonString);
+                        AddEvent.passedEvent = flyerParser(json);
                         System.out.println("REST Response:\n");
                         System.out.println(json.toString(2));
+                        gotoAddEventActivity();
                     }
                 }
                 catch (Exception e)
@@ -113,6 +122,135 @@ public class AddFlyerEvent extends AppCompatActivity {
 
     }
 
+    //this was something I made for Kunal
+    //public String testTime = "2018-05-07T13:30:00.000-05:00";
+
+    /*public Date[] gEventTimeParser(String[] s){
+        //this will take off the CST offest
+        for(String time : s){
+            time = time.substring(0,time.length()-6);
+        }
+        GregorianCalendar startDateCal = null;
+        GregorianCalendar endDateCal = null;
+
+        //these will set the year for both times
+        int startTimeYear = Integer.parseInt(s[0].substring(0,4));
+        int endTimeYear = Integer.parseInt(s[1].substring(0,4));
+
+        //these will get the month for both times
+        int startTimeMonth = Integer.parseInt(s[0].substring(5,7)) - 1;
+        int endTimeMonth = Integer.parseInt(s[1].substring(5,7)) - 1;
+
+        //these will get the day for both times
+        int startTimeDay = Integer.parseInt(s[0].substring(8,10));
+        int endTimeDay = Integer.parseInt(s[1].substring(8,10));
+
+        //these will get the hour of day for both times
+        int startTimeHour = Integer.parseInt(s[0].substring(11,13));
+        int endTimeHour = Integer.parseInt(s[1].substring(11,13));
+
+        //these will get the minute of day for both times
+        int startTimeMinute = Integer.parseInt(s[0].substring(14,16));
+        int endTimeMinute = Integer.parseInt(s[1].substring(14,16));
+
+        startDateCal = new GregorianCalendar(startTimeYear, startTimeMonth, startTimeDay, startTimeHour, startTimeMinute);
+        endDateCal = new GregorianCalendar(endTimeYear, endTimeMonth, endTimeDay, endTimeHour, endTimeMinute);
+
+        Date[] Duration = {null,null};
+        Duration[0] = startDateCal.getTime();
+        Duration[1] = endDateCal.getTime();
+
+        return Duration;
+
+    }*/
+
+    public Event flyerParser(JSONObject j) throws JSONException {
+        //Date sendDate = new Date();
+        //Time sendTime = new Time();
+        GregorianCalendar sendDate = null;
+        JSONArray ja = j.optJSONArray("regions");
+        ArrayList<String> allWords = new ArrayList<>();
+        //Event e = new Event();
+        int biggestWordHeight = 0;
+        for(int i = 0; i < ja.length(); i++){
+            JSONObject region = ja.getJSONObject(i);
+
+            JSONArray lines = region.optJSONArray("lines");
+            for(int k = 0; k < lines.length(); k++){
+                JSONObject box = lines.getJSONObject(k);
+                JSONArray words = box.getJSONArray("words");
+                String[] wordDims = words.getJSONObject(0).getString("boundingBox").split(",");
+                ArrayList<String> wordList = new ArrayList();
+                int wordHeight = Integer.parseInt(wordDims[3]);
+                if(wordHeight > biggestWordHeight){
+                    biggestWordHeight = wordHeight;
+                    if(!allWords.isEmpty()){
+                        allWords.clear();
+                    }
+                    for(int p = 0; p < words.length(); p++){
+                        allWords.add(words.getJSONObject(p).getString("text"));
+
+                    }
+                }else{
+                    for (int s = 0; s < words.length(); s++){
+                        wordList.add(words.getJSONObject(s).getString("text"));
+                    }
+                    for(int w = 0; w < wordList.size(); w++){
+                        String word = wordList.get(w);
+                        if(isMonth(word)){
+                            sendDate = new GregorianCalendar(2018,whatMonth(word) ,Integer.parseInt(wordList.get(w+1).substring(0,wordList.get(w+1).length()-2)));
+                            System.out.println(sendDate);
+                            break;
+                        }
+                    }
+
+                    if(sendDate != null) {
+                        break;
+                    }
+
+
+                    /*String text = "";
+                    for (int c = 0; c < wordList.size(); c++){
+                        text += wordList.get(c) + " ";
+                    }*/
+
+                    int test = 0;
+
+                }
+
+            }
+
+        }
+        String title = "";
+        for (int i = 0; i < allWords.size(); i++){
+            title += allWords.get(i) + " ";
+        }
+        Date startTime = sendDate.getTime();
+
+
+        return new Event(title, startTime, null, null, "flyer_calendar");
+
+
+
+
+    }
+
+    public boolean isMonth(String m){
+        m = m.toLowerCase();
+        if ((m.equals("january")) || (m.equals("february")) || (m.equals("march")) || (m.equals("april")) || (m.equals("may")) || (m.equals("june")) || (m.equals("july")) || (m.equals("august")) || (m.equals("september")) || (m.equals("october")) || (m.equals("november")) || (m.equals("december"))){
+            return true;
+        }
+        return false;
+    }
+
+    public int whatMonth(String m){
+        String[] monthsArray = {"january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"};
+        ArrayList<String> months = new ArrayList<>();
+        for(String month : monthsArray) {
+            months.add(month);
+        }
+        return months.indexOf(m.toLowerCase());
+    }
     static final int REQUEST_TAKE_PHOTO = 1;
     File photoFile = null;
     public void dispatchTakePictureIntent() {
@@ -124,7 +262,7 @@ public class AddFlyerEvent extends AppCompatActivity {
                 photoFile = createImageFile();
             } catch (IOException ex) {
                 // Error occurred while creating the File
-            //...
+                //...
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
@@ -161,7 +299,9 @@ public class AddFlyerEvent extends AppCompatActivity {
         return image;
     }
 
+    private void gotoAddEventActivity() {
+        Intent activityIntent = new Intent(this, AddEvent.class);
+        startActivity(activityIntent);
+    }
 
 }
-
-
