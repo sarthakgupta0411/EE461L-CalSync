@@ -68,6 +68,14 @@ public class MainCalendar {
             }
         }
     }
+
+    public static void linkCanvas() {
+        if(calendars == null) {
+            calendars = new LinkedList<>();
+        }
+        calendars.addAll(organizeEventsIntoCalendars(CanvasCalendar.fetchEvents(), "software.design.teamorangecalsync.CanvasCalendar"));
+    }
+
     private static List<FlexibleCalendar> fetchCalendarsFromAllSources() {
         System.out.println("fetchCalendarsFromAllSources");
         //compiles the calendars and
@@ -76,7 +84,9 @@ public class MainCalendar {
 
         //TODO: uncomment each of these as we add them in full
         //calendars.addAll(organizeEventsIntoCalendars(Database.fetchEventsFromDatabase(), "software.design.teamorangecalsync.CalSyncCalendar"));
-        calendars.addAll(organizeEventsIntoCalendars(CanvasCalendar.fetchEvents(), "software.design.teamorangecalsync.CanvasCalendar"));
+        if(MainActivity.canvas) {
+            calendars.addAll(organizeEventsIntoCalendars(CanvasCalendar.fetchEvents(), "software.design.teamorangecalsync.CanvasCalendar"));
+        }
         //calendars.addAll(organizeEventsIntoCalendars(GoogleCalendar.fetchEvents(), "software.design.teamorangecalsync.GoogleCalendar"));
 
         //addUniqueEventsToMap(allEvents, Database.fetchEventsFromDatabase());

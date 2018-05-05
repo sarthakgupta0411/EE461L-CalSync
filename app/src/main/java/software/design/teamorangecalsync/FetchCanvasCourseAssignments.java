@@ -17,14 +17,16 @@ import java.util.concurrent.Executors;
 
 public class FetchCanvasCourseAssignments {
 
-    public  ArrayList<Event> fetchCanvasAssignmentInfo(){
+    public  ArrayList<Event> fetchCanvasAssignmentInfo(String Access_Token){
         System.out.println("fetchCanvasAssignmentInfo");
         ArrayList<Event> che = new ArrayList<>();
         //System.out.println("here to get info111");
         ArrayList<FlexibleCalendar> mn = new ArrayList<>();     //TODO: I changed it to flexible calendar, make sure everything with it makes sense
         Map<String, ArrayList<Event>> Alist= new HashMap<String, ArrayList<Event>>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
-        String Access_Token = "1017~iPDnl3GFOa88Pf7cklx9pJ5Sre7ua4mA6DifYmIBn9fvdmYlqvKtJrLxxQ1MkKSt";
+        if(Access_Token.equals("1")){
+            Access_Token = "1017~iPDnl3GFOa88Pf7cklx9pJ5Sre7ua4mA6DifYmIBn9fvdmYlqvKtJrLxxQ1MkKSt";
+        }
         ExecutorService pool = Executors.newFixedThreadPool(10);
         ConcurrentHashMap<String, String> hs = new ConcurrentHashMap<String,String>();
         for(int i = 1; i < 10; i ++){

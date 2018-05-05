@@ -17,6 +17,8 @@ public class CanvasCalendar extends FlexibleCalendar {
         super(name);
     }
 
+    public static String token;
+
     public static List<Event> fetchEvents() {
         //System.out.println("fetchEvents");
         AsyncTask<String,String,String> myTask = new AsyncTask<String,String,String>() {
@@ -31,7 +33,7 @@ public class CanvasCalendar extends FlexibleCalendar {
             protected String doInBackground(String... strings) {
                 //System.out.println("here to get info");
                 FetchCanvasCourseAssignments f = new FetchCanvasCourseAssignments();
-                events = f.fetchCanvasAssignmentInfo();
+                events = f.fetchCanvasAssignmentInfo(token);
 
                 System.out.print(events);
                 return null;

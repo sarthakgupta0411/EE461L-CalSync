@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private CompactCalendarView compactCalendarView;
     private Scheduler scheduler;
 
+    public static boolean canvas;
+
     protected final static String[] MONTH_NAMES =
             {"January", "February", "March", "April", "May", "June",
                     "July", "August", "September", "October", "November", "December"};
@@ -125,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
     }
     public void gotoAddFlyerEvent(View view) {
         gotoActivity(AddFlyerEvent.class);
+    }
+    public void gotoCanvasLogin(View view) {
+        gotoActivity(CanvasLogin.class);
     }
     public void gotoDayViewActivity() {
         gotoActivity(DayViewActivity.class);

@@ -68,7 +68,10 @@ import com.google.android.gms.common.api.Scope;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener{
@@ -245,6 +248,8 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 return null;
             }
 
+            List<Event> gevents = new ArrayList<>();
+
             Context context = mActivityRef.get().getApplicationContext();
             try {
                 GoogleAccountCredential credential = GoogleAccountCredential.usingOAuth2(
@@ -276,10 +281,13 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                             start = event.getStart().getDate();
                         }
                         System.out.println( event.getSummary() + "------" + event.getStart().getDateTime());
+                        Date[] dates = gEventTimeParser(event.getStart().getDateTime().toString());
+                        //gevents.add(new Event(event.getSummary().toString(),dates[0], null, null, "GoogleCalendar"));
                     }
                 }
 
 // Retrieve an event
+
 
 
 
@@ -295,6 +303,45 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
             }
 
             return null;
+        }
+
+        public Date[] gEventTimeParser(String s){
+            //this will take off the CST offest
+         //   for(String time : s){
+                String time = s.substring(0,s.length()-6);
+
+            GregorianCalendar startDateCal = null;
+       //     GregorianCalendar endDateCal = null;
+
+            //these will set the year for both times
+            int startTimeYear = Integer.parseInt(s.substring(0,4));
+         //   int endTimeYear = Integer.parseInt(s[1].substring(0,4));
+
+            //these will get the month for both times
+            int startTimeMonth = Integer.parseInt(s.substring(5,7)) - 1;
+           // int endTimeMonth = Integer.parseInt(s[1].substring(5,7)) - 1;
+
+            //these will get the day for both times
+            int startTimeDay = Integer.parseInt(s.substring(8,10));
+           // int endTimeDay = Integer.parseInt(s[1].substring(8,10));
+
+            //these will get the hour of day for both times
+            int startTimeHour = Integer.parseInt(s.substring(11,13));
+           // int endTimeHour = Integer.parseInt(s[1].substring(11,13));
+
+            //these will get the minute of day for both times
+            int startTimeMinute = Integer.parseInt(s.substring(14,16));
+            //int endTimeMinute = Integer.parseInt(s[1].substring(14,16));
+
+            startDateCal = new GregorianCalendar(startTimeYear, startTimeMonth, startTimeDay, startTimeHour, startTimeMinute);
+//            endDateCal = new GregorianCalendar(endTimeYear, endTimeMonth, endTimeDay, endTimeHour, endTimeMinute);
+
+            Date[] Duration = {null,null};
+            Duration[0] = startDateCal.getTime();
+            //Duration[1] = endDateCal.getTime();
+
+            return Duration;
+
         }
 
         @Override
