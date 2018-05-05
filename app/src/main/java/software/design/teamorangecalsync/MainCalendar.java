@@ -1,6 +1,7 @@
 package software.design.teamorangecalsync;
 
 import java.lang.reflect.Constructor;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -38,15 +39,15 @@ public class MainCalendar {
         return null;    //returns null if not found
     }
     public static List<Event> getEventsFor(Date day) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
         List<Event> eventsForDay = new LinkedList<>();
         for(FlexibleCalendar cal : calendars) {
             try {
-                System.out.println("Event: ");
-                System.out.println(cal.getEvents());
-                eventsForDay.addAll(cal.getEvents().get(day));
+                eventsForDay.addAll(cal.getEvents().get(sdf.format(day)));
             }
             catch(NullPointerException calendarDoesntHaveEvents) {
-                System.out.println(day);
+                //System.out.println(day);
                 //nothing
             }
         }
@@ -85,7 +86,7 @@ public class MainCalendar {
 
         return calendars;
     }
-    private static void addUniqueEventsToMap(HashMap<Date, List<Event>> events, List<Event> list) {
+    private static void addUniqueEventsToMap(HashMap<String, List<Event>> events, List<Event> list) {
         if(list == null) {
             return;
         }
@@ -155,7 +156,7 @@ public class MainCalendar {
                 //add 3 events on the first, 2 on the second, 1 on the third
                 Date start = new Date(2018, 4, 27 + i, 11, 00);
                 Date end = new Date(2018, 4, 27 + i, 11, 30);
-                cSCal.addEvent(start, new Event("RandomEvent" + j, start, end, null, null, cSCal.getDisplayName()));
+//                cSCal.addEvent(start, new Event("RandomEvent" + j, start, end, null, null, cSCal.getDisplayName()));
             }
         }
 

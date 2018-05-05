@@ -10,7 +10,7 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
 
     //Calendar properties
     private String calendarName;
-    private HashMap<Date, List<Event>> events = new HashMap<>();
+    private HashMap<String, List<Event>> events = new HashMap<>();
 
     private int postfix;
     private boolean locked = false;
@@ -26,15 +26,14 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
         //buildUniqueName(name);
     }
 
-    private void addEvent(Date date, Event event) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
-        String dateKey = sdf.format(date.getTime());
+    public void addEvent(String date, Event event) {
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
+//        String dateKey = sdf.format(date.getTime());
         if (!events.containsKey(date)) {
             events.put(date, new ArrayList<Event>());
         }
-        System.out.println(events);
         events.get(date).add(event);
-        Scheduler.getInstance().addEvent(event);
+
     }
     public void addEvent(Event event) {
         //lazy add event function
@@ -64,7 +63,7 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
     public String getDisplayName() {
         return calendarName + "-" + postfix;
     }
-    public HashMap<Date, List<Event>> getEvents() {
+    public HashMap<String, List<Event>> getEvents() {
         return events;
     }
     public int getId() {

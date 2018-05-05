@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void addEventsToCalendarView() {
         List<FlexibleCalendar> calendars = MainCalendar.getCalendars();
+        System.out.println("------------------------------------------------------------");
         //The events are stored in a hashmap, where the key is the date of the event, and the value is an arraylist of all the events that day.
         //To get reference to the events for a day ArrayList<Event> = calendar.getEvents().get(new Date(year, month, day));
         //You can run through the arraylist like normal. Look through MainCalendar for more
