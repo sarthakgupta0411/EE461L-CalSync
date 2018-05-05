@@ -1,5 +1,6 @@
 package software.design.teamorangecalsync;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,7 +10,7 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
 
     //Calendar properties
     private String calendarName;
-    private HashMap<Date, ArrayList<Event>> events = new HashMap<>();
+    private HashMap<String, List<Event>> events = new HashMap<>();
 
     private int postfix;
     private boolean locked = false;
@@ -25,12 +26,14 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
         //buildUniqueName(name);
     }
 
-    public void addEvent(Date date, Event event) {
+    public void addEvent(String date, Event event) {
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
+//        String dateKey = sdf.format(date.getTime());
         if (!events.containsKey(date)) {
             events.put(date, new ArrayList<Event>());
         }
         events.get(date).add(event);
-        Scheduler.getInstance().addEvent(event);
+
     }
     public void addEvent(Event event) {
         //lazy add event function
@@ -60,7 +63,7 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
     public String getDisplayName() {
         return calendarName + "-" + postfix;
     }
-    public HashMap<Date, ArrayList<Event>> getEvents() {
+    public HashMap<String, List<Event>> getEvents() {
         return events;
     }
     public int getId() {

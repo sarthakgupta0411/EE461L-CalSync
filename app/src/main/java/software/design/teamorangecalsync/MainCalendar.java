@@ -1,6 +1,7 @@
 package software.design.teamorangecalsync;
 
 import java.lang.reflect.Constructor;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -24,7 +25,6 @@ public class MainCalendar {
         }
         else {
             if (calendars == null) {
-                calendars = new ArrayList<>();
                 fetchCalendars();   //add calendars to the arraylist
             }
         }
@@ -38,19 +38,35 @@ public class MainCalendar {
         }
         return null;    //returns null if not found
     }
+    public static List<Event> getEventsFor(Date day) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
+        List<Event> eventsForDay = new LinkedList<>();
+        for(FlexibleCalendar cal : calendars) {
+            try {
+                eventsForDay.addAll(cal.getEvents().get(sdf.format(day)));
+            }
+            catch(NullPointerException calendarDoesntHaveEvents) {
+                //System.out.println(day);
+                //nothing
+            }
+        }
+
+        return eventsForDay;
+    }
 
 
 
     //Private class helper methods
     private static void fetchCalendars() {
         System.out.println("fetchCalendars");
-        //if (calendars == null) {
-            //synchronized (MainCalendar.class) {   //thread safe synchronization
-               // if (calendars == null) {
+        if (calendars == null) {
+            synchronized (MainCalendar.class) {   //thread safe synchronization
+                if (calendars == null) {
                     calendars = fetchCalendarsFromAllSources();
-                //}
-            //}
-        //}
+               }
+            }
+        }
     }
     private static List<FlexibleCalendar> fetchCalendarsFromAllSources() {
         System.out.println("fetchCalendarsFromAllSources");
@@ -60,7 +76,7 @@ public class MainCalendar {
 
         //TODO: uncomment each of these as we add them in full
         //calendars.addAll(organizeEventsIntoCalendars(Database.fetchEventsFromDatabase(), "software.design.teamorangecalsync.CalSyncCalendar"));
-        //calendars.addAll(organizeEventsIntoCalendars(CanvasCalendar.fetchEvents(), "software.design.teamorangecalsync.CanvasCalendar"));
+        calendars.addAll(organizeEventsIntoCalendars(CanvasCalendar.fetchEvents(), "software.design.teamorangecalsync.CanvasCalendar"));
         //calendars.addAll(organizeEventsIntoCalendars(GoogleCalendar.fetchEvents(), "software.design.teamorangecalsync.GoogleCalendar"));
 
         //addUniqueEventsToMap(allEvents, Database.fetchEventsFromDatabase());
@@ -70,7 +86,7 @@ public class MainCalendar {
 
         return calendars;
     }
-    private static void addUniqueEventsToMap(HashMap<Date, List<Event>> events, List<Event> list) {
+    private static void addUniqueEventsToMap(HashMap<String, List<Event>> events, List<Event> list) {
         if(list == null) {
             return;
         }
@@ -140,7 +156,7 @@ public class MainCalendar {
                 //add 3 events on the first, 2 on the second, 1 on the third
                 Date start = new Date(2018, 4, 27 + i, 11, 00);
                 Date end = new Date(2018, 4, 27 + i, 11, 30);
-                cSCal.addEvent(start, new Event("RandomEvent" + j, start, end, null, null, cSCal.getDisplayName()));
+//                cSCal.addEvent(start, new Event("RandomEvent" + j, start, end, null, null, cSCal.getDisplayName()));
             }
         }
 
