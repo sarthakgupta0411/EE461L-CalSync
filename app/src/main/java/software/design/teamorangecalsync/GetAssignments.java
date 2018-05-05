@@ -94,7 +94,7 @@ public class GetAssignments implements Runnable {
 	        		 String[] s = due.split("-|T|\\:|Z");
 	        	    	Calendar c = new GregorianCalendar(Integer.parseInt(s[0]),Integer.parseInt(s[1])-1,Integer.parseInt(s[2]),Integer.parseInt(s[3]),Integer.parseInt(s[4]),Integer.parseInt(s[5]));
 	        	        c.add(Calendar.HOUR, -6);
-	        	        content.add(new Assignment(name,c.getTime(),des,this.course));	//TODO: fix
+	        	        content.add(new Assignment(name,c.getTime(),null,this.course));
 	        	}
 	        	 }
 	         }

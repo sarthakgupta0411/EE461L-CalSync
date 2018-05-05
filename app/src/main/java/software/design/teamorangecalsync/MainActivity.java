@@ -1,10 +1,13 @@
 package software.design.teamorangecalsync;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.provider.MediaStore;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -12,11 +15,15 @@ import android.widget.LinearLayout;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ActionBar actionBar;
+    private CompactCalendarView compactCalendarView;
     private Scheduler scheduler;
 
     @Override
@@ -24,22 +31,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //checks for user sign in
-        checkUserSignIn();
 
+        compactCalendarView = (CompactCalendarView)findViewById(R.id.compactcalendar_view);
         scheduler = Scheduler.getInstance();
+        addActionBarReference();
         passCalendarReferenceToScheduler();
-        addCalendarsToScrollView();
+        //addCalendarsToScrollView();
         addEventsToCalendarView();
 
-        addActionBarReference();
         addCalendarViewListeners();
     }
 
 
-    private void checkUserSignIn() {
-        //TODO: check for user credentials and link to welcome activity if
-    }
     private void addCalendarsToScrollView() {
 
         List<FlexibleCalendar> calendars = MainCalendar.getCalendars();
@@ -61,33 +64,58 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void addEventsToCalendarView() {
-        //TODO: @implement this using the compact calendar view component from the git API
-
         List<FlexibleCalendar> calendars = MainCalendar.getCalendars();
         //The events are stored in a hashmap, where the key is the date of the event, and the value is an arraylist of all the events that day.
         //To get reference to the events for a day ArrayList<Event> = calendar.getEvents().get(new Date(year, month, day));
         //You can run through the arraylist like normal. Look through MainCalendar for more
-        /*  for every calendar in the calendars
-         *      check if the calendar is visible
-         *      for every day in the current month in the calendar view
-         *          check if any event in the calendar
-         *              say events added are 0 so far
-         *              while there are events and events added less than 3 (or 5, you pick how many circles you want)
-         *                  if event is not already there (check day with api)
-         *                      add the event to the calendar view using the api
-         */
+        for (FlexibleCalendar cal : calendars){ //for each calendar in the list
+            if(cal.isVisible()) {// check if the calendar is visible
+                Collection<List<Event>> events = cal.getEvents().values();//add all events to calendar
+                for(List<Event> day : events) {
+                    for(Event event : day) {
+                        scheduler.addEvent(event);
+                    }
+                }
+            }
+        }
     }
 
     private void passCalendarReferenceToScheduler() {
-        scheduler.setCalendarReference((CompactCalendarView)findViewById(R.id.compactcalendar_view));
+        scheduler.setCalendarReference(compactCalendarView);
     }
 
     private void addActionBarReference() {
-        //TODO:
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(null);
+
     }
 
     private void addCalendarViewListeners() {
-        //TODO: under the dayclick linstener, add the dayview activity
+        compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+            @Override
+            public void onDayClick(Date dateClicked) {
+                DayViewActivity.eventsPassedToDayView = MainCalendar.getEventsFor(dateClicked);
+                gotoDayViewActivity();
+            }
+
+            @Override
+            public void onMonthScroll(Date firstDayOfNewMonth) {
+                actionBar.setTitle( "" + MONTH_NAMES[firstDayOfNewMonth.getMonth()]
+                        + " " + currentYear(firstDayOfNewMonth));
+            }
+
+            private final String[] MONTH_NAMES =
+                    {"January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"};
+
+            private int currentYear(Date deprecated) {
+                return 2018;
+                //Date deprecatedFix2018 = new Date(2018, 0, 0);
+                //return 2018 + deprecated.getYear() - deprecatedFix2018.getYear();
+            }
+
+        });
     }
 
 
@@ -97,6 +125,9 @@ public class MainActivity extends AppCompatActivity {
     }
     public void gotoAddFlyerEvent(View view) {
         gotoActivity(AddFlyerEvent.class);
+    }
+    public void gotoDayViewActivity() {
+        gotoActivity(DayViewActivity.class);
     }
     public void gotoEditCalendars(View view) {
         gotoActivity(EditCalendars.class);

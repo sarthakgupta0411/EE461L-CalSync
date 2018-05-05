@@ -9,7 +9,7 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
 
     //Calendar properties
     private String calendarName;
-    private HashMap<Date, ArrayList<Event>> events = new HashMap<>();
+    private HashMap<Date, List<Event>> events = new HashMap<>();
 
     private int postfix;
     private boolean locked = false;
@@ -60,7 +60,7 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
     public String getDisplayName() {
         return calendarName + "-" + postfix;
     }
-    public HashMap<Date, ArrayList<Event>> getEvents() {
+    public HashMap<Date, List<Event>> getEvents() {
         return events;
     }
     public int getId() {

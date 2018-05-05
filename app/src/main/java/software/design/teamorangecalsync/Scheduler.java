@@ -1,6 +1,12 @@
 package software.design.teamorangecalsync;
 
+import android.graphics.Color;
+
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 //Handles front end scheduling for new events
 public class Scheduler {
@@ -23,8 +29,9 @@ public class Scheduler {
     public void addEvent(Event event) {
         //front end
         //TODO: add the front end to add the dot to the calendar
-
-
+        Calendar cal = new GregorianCalendar(2018, event.getStartDate().getMonth(), event.getStartDate().getDay());
+        //cal.set(event.getStartDate().getYear(), event.getStartDate().getMonth(), event.getStartDate().getDay());
+        calendarView.addEvent(new com.github.sundeepk.compactcalendarview.domain.Event(Color.BLACK, cal.getTimeInMillis(), event.getTitle()));
     }
 
     /**
