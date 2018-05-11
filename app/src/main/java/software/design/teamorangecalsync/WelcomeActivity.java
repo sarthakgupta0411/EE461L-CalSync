@@ -264,10 +264,12 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                         .setApplicationName("applicationName").build();
 
                 DateTime now = new DateTime("2018-01-01T00:00:00-05:00");
+                DateTime end = new DateTime("2019-01-01T00:00:00-05:00");
                 Events events = serv.events().list("primary")
                         .setMaxResults(1000)
                         .setTimeMin(now)
                         .setOrderBy("startTime")
+                        .setTimeMax(end)
                         .setSingleEvents(true)
                         .execute();
                 List<Event> items = events.getItems();
