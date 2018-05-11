@@ -14,4 +14,12 @@
 
     <color name="calsync_mainactivity_component_background">#e0e0e0</color>
 
+
+    <color name="colorPrimary1">#3F51B5</color>
+    <color name="colorPrimaryDark1">#303F9F</color>
+    <color name="colorAccent1">#FF4081</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorDivider">#aaaaaa</color>
+
 </resources>

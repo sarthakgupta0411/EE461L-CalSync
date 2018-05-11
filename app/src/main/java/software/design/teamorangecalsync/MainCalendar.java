@@ -21,7 +21,9 @@ public class MainCalendar {
     public static List<FlexibleCalendar> getCalendars() {
         //TODO: remove debugging lines
         if(frontEndDebugging) {
-            setupTestCalendarList();
+            if (frontEndDebugging) {
+                setupTestCalendarList();
+            }
         }
         else {
             if (calendars == null) {

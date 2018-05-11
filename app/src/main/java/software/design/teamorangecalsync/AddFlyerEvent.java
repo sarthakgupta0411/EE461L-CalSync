@@ -96,7 +96,9 @@ public class AddFlyerEvent extends AppCompatActivity {
                         // Format and display the JSON response.
                         String jsonString = EntityUtils.toString(entity);
                         JSONObject json = new JSONObject(jsonString);
+
                         AddEvent.passedEvent = flyerParser(json);
+
                         System.out.println("REST Response:\n");
                         System.out.println(json.toString(2));
                         gotoAddEventActivity();
