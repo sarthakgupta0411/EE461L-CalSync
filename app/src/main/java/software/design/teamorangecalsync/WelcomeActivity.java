@@ -280,9 +280,11 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                         if (start == null) {
                             start = event.getStart().getDate();
                         }
-                        System.out.println( event.getSummary() + "------" + event.getStart().getDateTime());
-                        Date[] dates = gEventTimeParser(event.getStart().getDateTime().toString());
-                        //gevents.add(new Event(event.getSummary().toString(),dates[0], null, null, "GoogleCalendar"));
+                        System.out.println( event.getSummary() + "------" + event.getStart().getDateTime()) ;
+                        Date dates = gEventTimeParser(event.getStart().getDateTime().toString());
+                        Date enddate = gEventTimeParser(event.getEnd().getDateTime().toString());
+                        System.out.print(dates.toString());
+                        event.getDescription();// /gevents.add(new Event(event.getSummary().toString(),dates[0], null, null, "GoogleCalendar"));
                     }
                 }
 
@@ -305,11 +307,11 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
             return null;
         }
 
-        public Date[] gEventTimeParser(String s){
+        public Date gEventTimeParser(String s){
             //this will take off the CST offest
          //   for(String time : s){
                 String time = s.substring(0,s.length()-6);
-
+                System.out.println(time);
             GregorianCalendar startDateCal = null;
        //     GregorianCalendar endDateCal = null;
 
@@ -336,8 +338,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
             startDateCal = new GregorianCalendar(startTimeYear, startTimeMonth, startTimeDay, startTimeHour, startTimeMinute);
 //            endDateCal = new GregorianCalendar(endTimeYear, endTimeMonth, endTimeDay, endTimeHour, endTimeMinute);
 
-            Date[] Duration = {null,null};
-            Duration[0] = startDateCal.getTime();
+            Date Duration = startDateCal.getTime();
             //Duration[1] = endDateCal.getTime();
 
             return Duration;
