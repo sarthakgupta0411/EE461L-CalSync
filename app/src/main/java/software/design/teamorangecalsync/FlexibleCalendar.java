@@ -24,6 +24,7 @@ public abstract class FlexibleCalendar {// MainCalendar Object attributes
             name = "Unnamed";
         }
         //buildUniqueName(name);
+        calendarName = name;
     }
 
     public void addEvent(String date, Event event) {

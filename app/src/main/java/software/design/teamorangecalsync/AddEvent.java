@@ -146,7 +146,9 @@ public class AddEvent extends AppCompatActivity {
 
     private void addCalendarsToSpinner() {
         Spinner spinner = findViewById(R.id.calendarListSpinner);
+        System.out.println(spinner.toString() + " ----------");
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, calendarNames);
+
         spinner.setAdapter(adapter);
     }
     private void getAllCalendarNames() {

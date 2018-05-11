@@ -263,9 +263,9 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 Calendar serv = new Calendar.Builder(transport, jsonFactory, credential)
                         .setApplicationName("applicationName").build();
 
-                DateTime now = new DateTime(System.currentTimeMillis());
+                DateTime now = new DateTime("2018-01-01T00:00:00-05:00");
                 Events events = serv.events().list("primary")
-                        .setMaxResults(10)
+                        .setMaxResults(1000)
                         .setTimeMin(now)
                         .setOrderBy("startTime")
                         .setSingleEvents(true)
