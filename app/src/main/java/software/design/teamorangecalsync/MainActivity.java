@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDayClick(Date dateClicked) {
                 DayViewActivity.eventsPassedToDayView = MainCalendar.getEventsFor(dateClicked);
-                //gotoDayViewActivity();
+                gotoDayViewActivity();
                 System.out.println(DayViewActivity.eventsPassedToDayView);
             }
 

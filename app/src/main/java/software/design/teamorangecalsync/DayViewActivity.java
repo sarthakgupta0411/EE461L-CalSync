@@ -73,6 +73,13 @@ public class DayViewActivity extends AppCompatActivity {
     }
     private void displayDailyEvents(){
         Date calendarDate = cal.getTime();
+        for(Event e: eventsPassedToDayView){
+            Date eventDate = e.getStartTime();
+            Date endDate = e.getEndTime();
+            String eventMessage = e.getTitle();
+            int eventBlockHeight = getEventTimeFrame(eventDate, endDate);
+            displayEventSection(eventDate, eventBlockHeight, eventMessage);
+        }
         /*List<EventObjects> dailyEvent = mQuery.getAllFutureEvents(calendarDate);
         for(EventObjects eObject : dailyEvent){
             Date eventDate = eObject.getDate();
