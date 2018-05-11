@@ -54,7 +54,13 @@
     <!-- TODO(user): replace with your real server client ID -->
     <!-- Server Client ID.  This should be a valid Web OAuth 2.0 Client ID obtained
          from https://console.developers.google.com/ -->
-    <string name="server_client_id">820741857020-eedstlkaqaj8l8k041tpaa9shjqth1n3.apps.googleusercontent.com</string>
+
+    <!-- Uncomment your key. (We're bad at this xD) -->
+    <!-- Kunal's key -->
+    <!-- string name="server_client_id">820741857020-eedstlkaqaj8l8k041tpaa9shjqth1n3.apps.googleusercontent.com</string -->
+    <!-- Ed's key -->
+    <string name="server_client_id">849178616562-ou2hie0inerrld3jk3c0d9ou9gifoopt.apps.googleusercontent.com</string>
+
 
     <string name="app_name2">Android Calendar Daily View</string>
     <string name="time_12am">12 am</string>
