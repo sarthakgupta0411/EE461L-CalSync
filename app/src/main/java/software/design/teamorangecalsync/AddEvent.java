@@ -5,19 +5,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import java.util.Date;
+import java.util.List;
 
 public class AddEvent extends AppCompatActivity {
 
     public static Event passedEvent;
+
+    private List<String> calendarNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,38 +31,35 @@ public class AddEvent extends AppCompatActivity {
         setContentView(R.layout.activity_add_event);
 
         if(passedEvent != null) {
-            //it's from the API
-            ((EditText)findViewById(R.id.TitleInput)).setText(passedEvent.getTitle());
-            String date = passedEvent.getStartDate();
-            String[] split = date.split(" ");
-            ((EditText)findViewById(R.id.DateInputStart)).setText(split[0] + "/" + (passedEvent.getStartTime().getMonth() + 1) + "/" + split[2]);
-
+            //intent is from the API
+            populateFieldsWithFlyerInfo();
         }
-
+        getAllCalendarNames();
+        addCalendarsToSpinner();
     }
 
-    public void onClickOkButton(View myView){
+    public void onClickOkButton(View myView) {
         //Get all field values from input fields in view
-        String inputNotes = ((EditText)findViewById(R.id.InputNotes)).getText().toString();
-        String inputLocation = ((EditText)findViewById(R.id.InputLocation)).getText().toString();
-        String minuteInputEnd = ((EditText)findViewById(R.id.MinuteInputEnd)).getText().toString();
-        String hourInputEnd = ((EditText)findViewById(R.id.HourInputEnd)).getText().toString();
-        String dateInputEnd = ((EditText)findViewById(R.id.DateInputEnd)).getText().toString();
-        String minuteInputStart = ((EditText)findViewById(R.id.MinuteInputStart)).getText().toString();
-        String hourInputStart = ((EditText)findViewById(R.id.HourInputStart)).getText().toString();
-        String dateInputStart = ((EditText)findViewById(R.id.DateInputStart)).getText().toString();
-        String titleInput = ((EditText)findViewById(R.id.TitleInput)).getText().toString();
+        String inputNotes = ((EditText) findViewById(R.id.InputNotes)).getText().toString();
+        String inputLocation = ((EditText) findViewById(R.id.InputLocation)).getText().toString();
+        String minuteInputEnd = ((EditText) findViewById(R.id.MinuteInputEnd)).getText().toString();
+        String hourInputEnd = ((EditText) findViewById(R.id.HourInputEnd)).getText().toString();
+        String dateInputEnd = ((EditText) findViewById(R.id.DateInputEnd)).getText().toString();
+        String minuteInputStart = ((EditText) findViewById(R.id.MinuteInputStart)).getText().toString();
+        String hourInputStart = ((EditText) findViewById(R.id.HourInputStart)).getText().toString();
+        String dateInputStart = ((EditText) findViewById(R.id.DateInputStart)).getText().toString();
+        String titleInput = ((EditText) findViewById(R.id.TitleInput)).getText().toString();
 
         //Parse the mm/dd/yyyy
         String[] splitStartDate = new String[3];
         try {
             splitStartDate = dateInputStart.split("/");
-            if(splitStartDate.length < 3){
+            if (splitStartDate.length < 3) {
                 throw new Exception();
             }
-        }catch(Exception e) {
+        } catch (Exception e) {
             Toast toastStart = Toast.makeText(this, "Invalid start date!  Please try again.", Toast.LENGTH_LONG);
-            toastStart.setGravity(Gravity.TOP|Gravity.LEFT, 150, 400);
+            toastStart.setGravity(Gravity.TOP | Gravity.LEFT, 150, 400);
             View view = toastStart.getView();
             TextView text = (TextView) view.findViewById(android.R.id.message);
             text.setTextColor(Color.parseColor("#d849d1"));
@@ -73,12 +76,12 @@ public class AddEvent extends AppCompatActivity {
         String[] splitEndDate = new String[3];
         try {
             splitEndDate = dateInputEnd.split("/");
-            if(splitEndDate.length < 3){
+            if (splitEndDate.length < 3) {
                 throw new Exception();
             }
-        }catch(Exception e) {
+        } catch (Exception e) {
             Toast toastEnd = Toast.makeText(this, "Invalid end date!  Please try again.", Toast.LENGTH_LONG);
-            toastEnd.setGravity(Gravity.TOP|Gravity.LEFT, 150, 400);
+            toastEnd.setGravity(Gravity.TOP | Gravity.LEFT, 150, 400);
             View view = toastEnd.getView();
             TextView text = (TextView) view.findViewById(android.R.id.message);
             text.setTextColor(Color.parseColor("#d849d1"));
@@ -88,7 +91,7 @@ public class AddEvent extends AppCompatActivity {
 
 
         Integer endDay = Integer.parseInt(splitEndDate[1]);
-        Integer endMonth = Integer.parseInt(splitEndDate[0]) -1;
+        Integer endMonth = Integer.parseInt(splitEndDate[0]) - 1;
         Integer endYear = Integer.parseInt(splitEndDate[2]);
 
 
@@ -102,7 +105,7 @@ public class AddEvent extends AppCompatActivity {
         Calendar myCal = Calendar.getInstance();
         try {
             myCal.set(startYear, startMonth, startDay, hrInputStart, minInputStart);
-        }catch(Exception e){
+        } catch (Exception e) {
             Toast invalidDate = Toast.makeText(this, "Invalid Date!  Try again", Toast.LENGTH_SHORT);
             invalidDate.show();
             return;
@@ -111,7 +114,7 @@ public class AddEvent extends AppCompatActivity {
 
         try {
             myCal.set(endYear, endMonth, endDay, hrInputEnd, minInputEnd);
-        }catch(Exception e){
+        } catch (Exception e) {
             Toast invalidDate = Toast.makeText(this, "Invalid Date!  Try again", Toast.LENGTH_SHORT);
             invalidDate.show();
             return;
@@ -136,6 +139,29 @@ public class AddEvent extends AppCompatActivity {
         */
 
 
+    }
+    public void onClickCancelButton(View myView) {
+        //TODO: maybe?
+    }
+
+    private void addCalendarsToSpinner() {
+        Spinner spinner = findViewById(R.id.calendarListSpinner);
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, calendarNames);
+        spinner.setAdapter(adapter);
+    }
+    private void getAllCalendarNames() {
+        calendarNames = new ArrayList<>();
+        List<FlexibleCalendar> calendars = MainCalendar.getCalendars();
+        for(FlexibleCalendar cal : calendars) {
+            calendarNames.add(cal.getName());
+        }
+    }
+    private void populateFieldsWithFlyerInfo() {
+        //TODO: fix this parser.. :/
+        ((EditText)findViewById(R.id.TitleInput)).setText(passedEvent.getTitle());
+        String date = passedEvent.getStartDate();
+        String[] split = date.split(" ");
+        ((EditText)findViewById(R.id.DateInputStart)).setText(split[0] + "/" + (passedEvent.getStartTime().getMonth() + 1) + "/" + split[2]);
     }
 
 }

@@ -1,18 +1,15 @@
 Front End:
+- Day View (tweek)
 - Edit Event
 
 
 Back End:
 - Database commands need to be connected
+- Change event dats to georgian calendars
 
 
 To Integrate:
 - Add Event
-- Add Flyer Event
-- Day View
-- Canvas api needs to be connected with CanvasCalendar
-- Google api
-- connect all activity intents (activity to activity)- add the functions for buttons
 
 
 Optionally:

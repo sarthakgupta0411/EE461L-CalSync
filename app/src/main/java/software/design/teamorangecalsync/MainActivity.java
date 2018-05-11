@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Button onclick calls
     public void gotoAddEvent(View view) {
+        AddEvent.passedEvent = null;    //sets this to null to avoid conflicts with addFlyerEvent
         gotoActivity(AddEvent.class);
     }
     public void gotoAddFlyerEvent(View view) {
