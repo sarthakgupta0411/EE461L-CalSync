@@ -1,28 +1,19 @@
 Front End:
-- Add Event
-- Add Flyer Event
-- Canvas Login (access token)
-- Day View ***
-- Main Activity ***
-- Edit Calendars
 - Edit Event
-- Login
-- Sign up
-- Google Sign in
 
 
 Back End:
 - Database commands need to be connected
-- Google api
+
+
+To Integrate:
+- Add Event
+- Add Flyer Event
+- Day View
 - Canvas api needs to be connected with CanvasCalendar
-- Computer vision API
-- Scheduler (handles front end calendar event look)
-- Main Activity (fetching calendars)
-- pushing (where and when)
-- connect all activity intents (activity to activity)
-- add the functions for buttons
+- Google api
+- connect all activity intents (activity to activity)- add the functions for buttons
 
 
-- Test plan
-- Final design report
-- demo 
+Optionally:
+- Edit Calendars

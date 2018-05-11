@@ -1,15 +1,21 @@
 package software.design.teamorangecalsync;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GoogleCalendar extends FlexibleCalendar {
+
+    private static List<Event> events = new ArrayList<>();
+
     public GoogleCalendar(String name) {
         super(name);
     }
 
-    public static List<Event> fetchEvents() {
-        //TODO: figure out and link up. Return a list of Event objects
-        //  so, part of that is making an event object for each event
-        return null;
+    public static void addStaticEvent(Event event) {
+        events.add(event);
     }
+    public static List<Event> fetchEvents() {
+        return events;
+    }
+
 }

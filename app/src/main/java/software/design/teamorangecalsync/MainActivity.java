@@ -39,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        compactCalendarView = (CompactCalendarView)findViewById(R.id.compactcalendar_view);
-        scheduler = Scheduler.getInstance();
         addActionBarReference();
+        compactCalendarView = findViewById(R.id.compactcalendar_view);
+        scheduler = Scheduler.getInstance();
         passCalendarReferenceToScheduler();
         //addCalendarsToScrollView();
         addEventsToCalendarView();
@@ -104,7 +104,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDayClick(Date dateClicked) {
                 DayViewActivity.eventsPassedToDayView = MainCalendar.getEventsFor(dateClicked);
-                gotoDayViewActivity();
+                //gotoDayViewActivity();
+                System.out.println(DayViewActivity.eventsPassedToDayView);
             }
 
             @Override

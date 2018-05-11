@@ -280,11 +280,16 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                         if (start == null) {
                             start = event.getStart().getDate();
                         }
-                        System.out.println( event.getSummary() + "------" + event.getStart().getDateTime()) ;
-                        Date dates = gEventTimeParser(event.getStart().getDateTime().toString());
-                        Date enddate = gEventTimeParser(event.getEnd().getDateTime().toString());
-                        System.out.print(dates.toString());
-                        event.getDescription();// /gevents.add(new Event(event.getSummary().toString(),dates[0], null, null, "GoogleCalendar"));
+                        String title = event.getSummary();
+                        System.out.println( title + "------" + event.getStart().getDateTime()) ;
+                        Date startDate = gEventTimeParser(event.getStart().getDateTime().toString());
+                        Date endDate = gEventTimeParser(event.getEnd().getDateTime().toString());
+                        System.out.print(startDate.toString());
+                        String desc = event.getDescription();// /gevents.add(new Event(event.getSummary().toString(),dates[0], null, null, "GoogleCalendar"));
+
+                        software.design.teamorangecalsync.Event newEvent = new software.design.teamorangecalsync.Event(
+                                title, startDate, endDate, null, desc, "GoogleCalendar");
+                        GoogleCalendar.addStaticEvent(newEvent);
                     }
                 }
 

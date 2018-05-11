@@ -87,7 +87,7 @@ public class MainCalendar {
         if(MainActivity.canvas) {
             calendars.addAll(organizeEventsIntoCalendars(CanvasCalendar.fetchEvents(), "software.design.teamorangecalsync.CanvasCalendar"));
         }
-        //calendars.addAll(organizeEventsIntoCalendars(GoogleCalendar.fetchEvents(), "software.design.teamorangecalsync.GoogleCalendar"));
+        calendars.addAll(organizeEventsIntoCalendars(GoogleCalendar.fetchEvents(), "software.design.teamorangecalsync.GoogleCalendar"));
 
         //addUniqueEventsToMap(allEvents, Database.fetchEventsFromDatabase());
         //calendars.add( organizeEventsIntoCalendars( mapToListOfEvents(allEvents), "CalSyncCalendar");

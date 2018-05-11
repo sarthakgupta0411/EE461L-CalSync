@@ -35,13 +35,6 @@ public class AddEvent extends AppCompatActivity {
 
     }
 
-
-
-
-
-
-
-
     public void onClickOkButton(View myView){
         //Get all field values from input fields in view
         String inputNotes = ((EditText)findViewById(R.id.InputNotes)).getText().toString();
